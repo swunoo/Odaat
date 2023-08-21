@@ -17,8 +17,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Collection;
 
-@Component
-public class DatabaseInitializer implements CommandLineRunner {
+
+// This is a way by which basic JDBC connections can be made in Spring.
+// @Component
+public class DatabaseInitializer {
 
     @Value("classpath:ddl/users_table.sql")
     private Resource usersTableSql;
@@ -30,10 +32,10 @@ public class DatabaseInitializer implements CommandLineRunner {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        executeSqlFile(usersTableSql);
-    }
+    // @Override
+    // public void run(String... args) throws Exception {
+    //     executeSqlFile(usersTableSql);
+    // }
 
     private void executeSqlFile(Resource sqlResource) throws Exception {
 
@@ -48,11 +50,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             String select = "SELECT * FROM users;";
 
             jdbcTemplate.query(
-        select, new Object[] { },
-        (rs, rowNum) -> {
-            System.out.println(rs);
-            return new Users ();
-        }
-    );
+            select, new Object[] { },
+            (rs, rowNum) -> {
+                System.out.println(rs);
+                return new Users ();
+            }
+        );
   }
 }
