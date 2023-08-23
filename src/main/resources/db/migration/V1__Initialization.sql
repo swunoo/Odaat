@@ -1,5 +1,18 @@
+-- Enums
+CREATE TYPE TaskStatus AS ENUM (
+    'TODO', 'INPROGRESS', 'COMPLETED');
+
+CREATE TYPE ProgramType AS ENUM (
+    'JOB', 'FAMILY', 'LEARNING', 'EXERCISE', 'CHORES'
+);
+
+CREATE TYPE DayType AS ENUM (
+    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'HOLIDAY', 'ABSENCE'
+);
+
+-- Tables
 CREATE TABLE note (
-    id serial INT PRIMARY KEY,
+    id serial PRIMARY KEY,
     created_at DATE,
     updated_at DATE,
     title VARCHAR(255),
@@ -17,7 +30,8 @@ CREATE TABLE holiday (
 );
 
 CREATE TABLE task (
-    id serial INT,
+    id serial PRIMARY KEY,
+    theme INT,
     is_routine BOOLEAN,
     date DATE,
     description TEXT,
@@ -25,9 +39,10 @@ CREATE TABLE task (
 );
 
 CREATE TABLE theme (
-    id serial INT,
+    id serial PRIMARY KEY,
+    image INT,
     name VARCHAR(128),
-    category CategoryStatus,
+    program ProgramType,
     created_at DATE,
     timespent DECIMAL(7,3)
 );
@@ -41,19 +56,23 @@ CREATE TABLE project (
 CREATE TABLE routine (
     repeated_days DayType[8],
     time TIME,
-    is_active BOOLEAN
+    is_active BOOLEAN,
+    CONSTRAINT theme FOREIGN KEY (id) REFERENCES theme(id)
 ) INHERITS (theme);
 
 CREATE TABLE image (
-    id serial INT,
+    id serial PRIMARY KEY,
     filename VARCHAR(255),
     location VARCHAR(255)
 );
 
-ALTER TABLE task 
-ADD theme 
-INT FOREIGN KEY REFERENCES theme(id);
+-- Adding FKs
+ALTER TABLE task
+ADD CONSTRAINT fk_task
+FOREIGN KEY (theme)
+REFERENCES theme(id);
 
-ALTER TABLE theme 
-ADD image 
-INT FOREIGN KEY REFERENCES image(id);
+ALTER TABLE theme
+ADD CONSTRAINT fk_img
+FOREIGN KEY (image)
+REFERENCES image(id);
