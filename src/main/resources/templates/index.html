@@ -7,5 +7,14 @@
 </head>
 <body>
     <h1>Hello World</h1>
+
+    <tbody>
+        <tr th:each="note : ${notes}">
+            <td th:text="${note.id}"></td>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.createdAt}"></td>
+            <td th:text="${note.updatedAt}"></td>
+        </tr>
+    </tbody>
 </body>
 </html>
