@@ -9,6 +9,8 @@ public class Note {
     String title;
     String content;
 
+    public Note(){ /*For Jackson*/ }
+
     public Note(LocalDate createdAt, LocalDate updatedAt, String title, String content) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

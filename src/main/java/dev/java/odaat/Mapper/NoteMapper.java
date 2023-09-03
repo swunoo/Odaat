@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import dev.java.odaat.Entity.Note;
@@ -20,5 +21,6 @@ public interface NoteMapper {
     @Select("SELECT * FROM note")
     List<Note> selectAll();
 
-    
+    @Select("SELECT * FROM note WHERE id = #{id}")
+    Note selectById(@Param("id") int id);
 }

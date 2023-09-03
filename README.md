@@ -14,3 +14,5 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Routes: 1 hr
 * Database: 1 + 1 + 1
 * CRUD: 1 +
+
+## Journal

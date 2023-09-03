@@ -20,4 +20,8 @@ public class NoteService {
     public List<Note> getAll(){
         return noteMapper.selectAll();
     }
+
+    public Note getOne(int id){
+        return noteMapper.selectById(id);
+    }
 }
