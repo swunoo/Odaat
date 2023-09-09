@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.java.odaat.Mapper.NoteMapper">
+
+    <select id="selectAll" resultType="dev.java.odaat.Entity.Note">
+        SELECT * FROM note
+    </select>
+
+    <select id="selectById" resultType="dev.java.odaat.Entity.Note">
+        SELECT * FROM note WHERE id=#{id}
+    </select>
+</mapper>

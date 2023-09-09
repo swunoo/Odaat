@@ -18,9 +18,8 @@ public interface NoteMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Note note);
 
-    @Select("SELECT * FROM note")
     List<Note> selectAll();
 
-    @Select("SELECT * FROM note WHERE id = #{id}")
+    // @Select("SELECT * FROM note WHERE id = #{id}")   // This also works.
     Note selectById(@Param("id") int id);
 }
