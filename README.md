@@ -16,3 +16,4 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * CRUD: 1 + 1 (Up to one sample Entity)
 
 ## Journal
+* Started on 2023 September
