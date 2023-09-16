@@ -1,0 +1,51 @@
+package dev.java.odaat.Controller.App;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dev.java.odaat.Entity.Task;
+import dev.java.odaat.Entity.Enums.TaskStatus;
+
+@Controller
+@RequestMapping("/dashboard")
+public class DashboardController {
+    
+    // Gets necessary data through services and returns html.
+    @GetMapping
+    public String dashboard(Model model){
+
+        // Mock data for testing
+        model.addAttribute(
+            "mockTasks",
+            Arrays.asList(
+                new Task(
+                    1, false, 1, LocalDate.now(), LocalTime.of(9, 0), LocalTime.of(10, 0), "Lorem Ipsum Dolor Sit Amet", TaskStatus.COMPLETED
+                ),
+                new Task(
+                    2, false, 1, LocalDate.now(), LocalTime.of(10, 0), LocalTime.of(10, 30), "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque ullam, dolores corporis porro nostrum iusto optio eveniet exercitationem minima nam suscipit neque asperiores atque ut perspiciatis deleniti alias. Impedit cum eius mollitia sed error totam. Iusto assumenda perferendis reiciendis asperiores aspernatur. At accusamus repudiandae voluptatum dignissimos dolor, neque, consequatur nihil voluptas quod velit, id dicta ducimus fuga aut tempore. Officiis doloribus cum, excepturi quaerat vitae eius expedita odio neque possimus iure blanditiis similique quo voluptatibus optio illo! Enim sapiente similique dolorum repudiandae optio nulla itaque consequuntur eligendi rerum, consequatur non omnis fugit sed explicabo maxime eveniet numquam est reiciendis debitis.", TaskStatus.IN_PROGRESS
+                ),
+                new Task(
+                    3, true, 1, LocalDate.now(), LocalTime.of(10, 30), LocalTime.of(15, 0), "Lorem.", TaskStatus.TO_DO
+                )
+            )    
+        );
+
+        model.addAttribute(
+            "mockProjectList",
+            Arrays.asList(
+                "Java", "Mybatis", "Thymeleaf"
+            )
+        );
+
+        return "dashboard";
+    }
+}

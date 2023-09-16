@@ -1,4 +1,4 @@
-package dev.java.odaat.Controller;
+package dev.java.odaat.Controller.Api;
 
 import java.time.LocalDate;
 import java.util.Arrays;

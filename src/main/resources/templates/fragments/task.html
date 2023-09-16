@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odaat | Task</title>
+    <style>
+        section {
+            height: 80vh;
+            overflow-y: scroll;
+        }
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section th:fragment="task-details (date, tasks, reportOptions)">
+        <header class="title-container bg-blue-dark">
+            <p class="font-title" th:text="${date}"></p>
+            <div th:replace="fragments/common :: drop-down (label='Report', options=${reportOptions})"></div>
+        </header>
+        <table class="task-detail-table">
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.start-time}"></td>
+                <td th:text="${task.end-time}"></td>
+                <td><img th:src="${task.img-path}" alt="Image"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}"></td>
+            </tr>
+        </table>
+    </section>
+    <form th:fragment="task-adder (projectList)">
+        <label class="flex">
+            <div th:replace="fragments/common :: drop-down (label='Project:', options=${projectList})"></div>
+        </label>
+        <label class="flex">
+            Description:
+            <input type="text" name="description"/>
+        </label>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

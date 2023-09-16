@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odaat | Dashboard</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <div th:replace="fragments/common :: header"></div>
+    <div th:replace="fragments/task :: task-details (
+        date = ${mockTasks.date}
+        tasks = ${mockTasks.tasks}
+        reportOptions = ${mockTasks.options}
+    )"></div>
+    <div th:replace="fragments/task :: task-adder (
+        projectList = ${mockProjectList}
+    )"></div>
+    
+    
+</body>
+</html>

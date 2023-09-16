@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odaat | Fragments</title>
+</head>
+<body>
+    <nav class="flex justify-between" th:fragment="header">
+        <img src="/images/ui/logo.png" alt="Logo">
+        <div class="flex gap-3">
+            <a href="#">Dashboard</a>
+            <a href="#">Projects</a>
+            <a href="#">Overview</a>
+            <img src="/images/user/profile.png" alt="John Doe">
+        </div>
+    </nav>
+
+    <label th:fragment="drop-down (label, options)">
+        <p th:text="${label}"></p>
+        <select th:id="${label}">
+            <option th:each="option : ${options}" th:value="${option}"></option>
+        </select>
+
+        <!-- <img src="/images/ui/down-arrow.svg" alt="Select"/> -->
+    </label>
+</body>
+</html>

@@ -1,0 +1,75 @@
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=JetBrains+Mono:wght@100;300;700&display=swap');
+
+/* Constants */
+html{
+    --brand-blue-light: #D6E6ED;
+    --brand-blue-dark: #023047;
+    --brand-orange: #FB8500;
+    --brand-gray-light: #eee;
+    --brand-gray-dark: #333;
+
+    --border-small: 5px;
+    --shadow-small: 1px 1px 5px #111;
+}
+
+/* Default */
+body {
+    background-color: var(--brand-blue-light);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+button, label {
+    background-color: white;
+    border: none;
+    border-radius: var(--border-small);
+    box-shadow: var(--shadow-small);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+nav img {
+    width: 10em;
+}
+
+/* Layout */
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+/* Utils */
+.gap-1 { gap: 2em; }
+.gap-2 { gap: 3em; }
+.gap-3 { gap: 5em; }
+.gap-4 { gap: 7em; }
+.gap-5 { gap: 10em; }
+
+.font-bold{ font-weight: 100; }
+.font-thin{ font-weight: 700; }
+.font-big { font-size: 20px; }
+.font-small { font-size: 10px; }
+.font-title { font-family: 'Itim', cursive; }
+
+.bg-blue-dark { background-color: var(--brand-blue-dark); }
+.bg-gray-light { background-color: var(--brand-gray-light); }
+
+/* Components */
+.btn-blue { background-color: var(--brand-blue-light); }
+.btn-orange { background-color: var(--brand-orange); color: white;}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em;
+    border-bottom: 1px solid #000;
+}
