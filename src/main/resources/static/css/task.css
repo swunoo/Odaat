@@ -24,6 +24,11 @@
 
 }
 
+.task-details img {
+    max-width: 2em;
+    max-height: 2em;
+    vertical-align: top;
+}
 
 .task-details td:nth-child(1){ 
     width: 5%;

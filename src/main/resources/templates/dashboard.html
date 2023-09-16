@@ -13,7 +13,8 @@
         <div th:replace="fragments/task :: task-details (
             tasks = ${mockTasks},
             reportOptions = ${reportOptions},
-            completionStatus = ${completionStatus}
+            completionStatus = ${completionStatus},
+            userImgDir = ${userImgDir},
         )"></div>
     </div>
     <div th:replace="fragments/task :: task-adder (

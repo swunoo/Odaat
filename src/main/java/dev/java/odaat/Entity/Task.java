@@ -10,14 +10,14 @@ import dev.java.odaat.Entity.Enums.TaskStatus;
 public class Task {
     int id;
     boolean isRoutineTask;
-    int theme;
+    Theme theme;
     LocalDate date;
     LocalTime startTime;
     LocalTime endTime;
     String description;
     TaskStatus status;
 
-    public Task(int id, boolean isRoutineTask, int theme, LocalDate date, LocalTime startTime, LocalTime endTime,
+    public Task(int id, boolean isRoutineTask, Theme theme, LocalDate date, LocalTime startTime, LocalTime endTime,
             String description, TaskStatus status) {
         this.id = id;
         this.isRoutineTask = isRoutineTask;
@@ -37,7 +37,7 @@ public class Task {
         return isRoutineTask;
     }
 
-    public int getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 

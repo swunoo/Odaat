@@ -15,8 +15,7 @@
             <tr th:each="task : ${tasks}" th:classappend="${task.status == completionStatus ? 'completed-task' : ''}">
                 <td th:text="${task.startTime}"></td>
                 <td th:text="${task.endTime}"></td>
-                <!-- <td><img th:src="${task.img-path}" alt="Image"></td> -->
-                <td><img src="" alt="Image"></td>
+                <td><img th:src="${userImgDir + task.theme.imgName}" th:alt="${task.theme.name}"></td>
                 <td th:text="${task.description}"></td>
                 <td th:if="${task.status} == ${completionStatus}">
                     <img src="/images/ui/redo.png" alt="redo"/>
