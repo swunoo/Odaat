@@ -15,9 +15,10 @@ public class Task {
     LocalTime startTime;
     LocalTime endTime;
     String description;
-    TaskStatus taskStatus;
+    TaskStatus status;
+
     public Task(int id, boolean isRoutineTask, int theme, LocalDate date, LocalTime startTime, LocalTime endTime,
-            String description, TaskStatus taskStatus) {
+            String description, TaskStatus status) {
         this.id = id;
         this.isRoutineTask = isRoutineTask;
         this.theme = theme;
@@ -25,32 +26,39 @@ public class Task {
         this.startTime = startTime;
         this.endTime = endTime;
         this.description = description;
-        this.taskStatus = taskStatus;
+        this.status = status;
     }
+
     public int getId() {
         return id;
     }
+
     public boolean isRoutineTask() {
         return isRoutineTask;
     }
+
     public int getTheme() {
         return theme;
     }
+
     public LocalDate getDate() {
         return date;
     }
+
     public LocalTime getStartTime() {
         return startTime;
     }
+
     public LocalTime getEndTime() {
         return endTime;
     }
+
     public String getDescription() {
         return description;
     }
-    public TaskStatus getTaskStatus() {
-        return taskStatus;
+
+    public TaskStatus getStatus() {
+        return status;
     }
-    
-    
+
 }

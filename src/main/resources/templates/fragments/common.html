@@ -15,10 +15,10 @@
         </div>
     </nav>
 
-    <label th:fragment="drop-down (label, options)">
+    <label th:fragment="drop-down (label, options)" class="flex gap-2">
         <p th:text="${label}"></p>
         <select th:id="${label}">
-            <option th:each="option : ${options}" th:value="${option}"></option>
+            <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
         </select>
 
         <!-- <img src="/images/ui/down-arrow.svg" alt="Select"/> -->

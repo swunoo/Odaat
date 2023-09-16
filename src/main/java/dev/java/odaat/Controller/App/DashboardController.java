@@ -40,11 +40,20 @@ public class DashboardController {
         );
 
         model.addAttribute(
+            "reportOptions",
+            Arrays.asList(
+                "Daily", "Weekly", "Monthly"
+            )
+        );
+
+        model.addAttribute(
             "mockProjectList",
             Arrays.asList(
                 "Java", "Mybatis", "Thymeleaf"
             )
         );
+
+        model.addAttribute("completionStatus", TaskStatus.COMPLETED);
 
         return "dashboard";
     }

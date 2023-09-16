@@ -3,41 +3,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odaat | Task</title>
-    <style>
-        section {
-            height: 80vh;
-            overflow-y: scroll;
-        }
-        form {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            background-color: black;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="css/task.css">
 </head>
 <body>
-    <section th:fragment="task-details (date, tasks, reportOptions)">
+    <section th:fragment="task-details (tasks, reportOptions, completionStatus)" class="task-details">
         <header class="title-container bg-blue-dark">
-            <p class="font-title" th:text="${date}"></p>
-            <div th:replace="fragments/common :: drop-down (label='Report', options=${reportOptions})"></div>
+            <p class="font-title font-big font-bold" th:text="${tasks[0].date}"></p>
+            <div th:replace="fragments/common :: drop-down (label='', options=${reportOptions})" class="task-container"></div>
         </header>
-        <table class="task-detail-table">
-            <tr th:each="task : ${tasks}">
-                <td th:text="${task.start-time}"></td>
-                <td th:text="${task.end-time}"></td>
-                <td><img th:src="${task.img-path}" alt="Image"></td>
+        <table>
+            <tr th:each="task : ${tasks}" th:classappend="${task.status == completionStatus ? 'completed-task' : ''}">
+                <td th:text="${task.startTime}"></td>
+                <td th:text="${task.endTime}"></td>
+                <!-- <td><img th:src="${task.img-path}" alt="Image"></td> -->
+                <td><img src="" alt="Image"></td>
                 <td th:text="${task.description}"></td>
-                <td th:text="${task.status}"></td>
+                <td th:if="${task.status} == ${completionStatus}">
+                    <img src="/images/ui/redo.png" alt="redo"/>
+                </td>
+                <td th:unless="${task.status} == ${completionStatus}">
+                    <img src="/images/ui/complete.png" alt="redo"/>
+                </td>
             </tr>
         </table>
     </section>
-    <form th:fragment="task-adder (projectList)">
-        <label class="flex">
+
+    <form th:fragment="task-adder (projectList)" class="task-adder">
+        <label>
             <div th:replace="fragments/common :: drop-down (label='Project:', options=${projectList})"></div>
         </label>
-        <label class="flex">
+        <label class="flex gap-2">
             Description:
             <input type="text" name="description"/>
         </label>
