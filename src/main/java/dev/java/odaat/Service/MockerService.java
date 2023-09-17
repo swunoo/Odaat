@@ -51,7 +51,7 @@ public class MockerService {
                     LocalDate.of(faker.number().numberBetween(2020, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)),
                     completedAt,
                     faker.number().numberBetween(30, 100),
-                    Arrays.asList(DayType.SUN, DayType.ABS, DayType.TUE),
+                    Arrays.asList(DayType.SUN, DayType.ABSENT, DayType.TUE),
                     LocalTime.of(faker.number().numberBetween(1, 12), faker.number().numberBetween(0, 59)),
                     LocalTime.of(faker.number().numberBetween(12, 24), faker.number().numberBetween(0, 59)),
                     Math.random() > 0.2 ? true : false)
