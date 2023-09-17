@@ -6,6 +6,7 @@ import java.util.List;
 
 import dev.java.odaat.Entity.Enums.DayType;
 import dev.java.odaat.Entity.Enums.ProgramType;
+import dev.java.odaat.Entity.Enums.ThemeType;
 
 public class Routine extends Theme {
 
@@ -15,7 +16,7 @@ public class Routine extends Theme {
     boolean isActive;
 
     public Routine(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
-        super(id, name, description, imgName, program, startedAt, completedAt, timeSpent);
+        super(id, ThemeType.ROUTINE, name, description, imgName, program, startedAt, completedAt, timeSpent);
         this.repeatedOn = repeatedOn;
         this.startTime = startTime;
         this.endTime = endTime;

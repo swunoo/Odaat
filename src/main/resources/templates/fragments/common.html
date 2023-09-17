@@ -8,9 +8,9 @@
     <nav class="flex justify-between" th:fragment="header">
         <img src="/images/ui/logo.png" alt="Logo">
         <div class="flex gap-3">
-            <a href="#">Dashboard</a>
-            <a href="#">Projects</a>
-            <a href="#">Overview</a>
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/overview}">Overview</a>
+            <!-- <a href="#">Calendar</a> -->
             <img src="/images/user/profile.png" alt="John Doe">
         </div>
     </nav>

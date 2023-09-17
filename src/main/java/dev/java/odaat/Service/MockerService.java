@@ -25,8 +25,8 @@ public class MockerService {
     public List<Theme> generateThemes(int number){
         List<Theme> themes = new ArrayList<>();
         for(int i = 0; i < number; i++){
+            LocalDate completedAt = Math.random() > 0.5 ? LocalDate.of(faker.number().numberBetween(2022, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)) : null;
             if(i%2==0){
-                LocalDate completedAt = Math.random() > 0.5 ? LocalDate.of(faker.number().numberBetween(2022, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)) : null;
                 themes.add(
                     new Project(
                     i,
@@ -41,7 +41,6 @@ public class MockerService {
                     LocalDate.of(faker.number().numberBetween(2025, 2030), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)))
                 );
             } else {
-                LocalDate completedAt = Math.random() > 0.5 ? LocalDate.of(faker.number().numberBetween(2022, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)) : null;
                 themes.add(
                     new Routine(
                     i,

@@ -3,9 +3,11 @@ package dev.java.odaat.Entity;
 import java.time.LocalDate;
 
 import dev.java.odaat.Entity.Enums.ProgramType;
+import dev.java.odaat.Entity.Enums.ThemeType;
 
 public class Theme {
     int id;
+    ThemeType type;
     String name;
     String description;
     String imgName;
@@ -14,8 +16,9 @@ public class Theme {
     LocalDate completedAt;
     double timeSpent;
 
-    public Theme(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
+    public Theme(int id, ThemeType type, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
         this.id = id;
+        this.type = type;
         this.name = name;
         this.description = description;
         this.imgName = imgName;
@@ -27,6 +30,10 @@ public class Theme {
 
     public int getId() {
         return id;
+    }
+
+    public ThemeType getType() {
+        return type;
     }
 
     public String getName() {
@@ -45,11 +52,11 @@ public class Theme {
         return program;
     }
 
-    public LocalDate getStartedDate() {
+    public LocalDate getStartedAt() {
         return startedAt;
     }
 
-    public LocalDate getCompleteDate() {
+    public LocalDate getCompletedAt() {
         return completedAt;
     }
 

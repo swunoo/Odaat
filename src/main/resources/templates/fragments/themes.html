@@ -3,58 +3,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odaat | Themes</title>
-    <link rel="stylesheet" href="css/overview.css">
     <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
-    <main th:fragment="theme-group (title, themes, controls, programs, userImgDir)">
+    <main class="theme-group-container" th:fragment="theme-group (title, themes, controls, programs, userImgDir)">
         <header class="title-container">
-            <p class="font-title font-big font-bold" th:replace="${title}"></p>
-            <!-- If "sortOption" is included in ${controls} -->
-            <div th:replace="fragments/common :: drop-down (
-                label='Sort by:', options=${ {'Program', 'Time Spent', 'Most Recent'} }
-            )"></div>
-            <!-- If "byProgram" is included in ${controls} -->
-            <div th:replace="fragments/common :: drop-down (
-                label='View:', options=${programs}
-            )"></div>
-            <!-- If "newBtn" is included in ${controls} -->
-            <button type="button">Add New</button>
+            <p class="font-title font-big font-bold" th:text="${title}"></p>
+            <div class="flex gap-3">
+                <!-- If "sortOption" is included in ${controls} -->
+                <div th:if="${#lists.contains(controls, 'sortOption')}" th:insert="fragments/common :: drop-down (
+                    label='Sort by:', options=${ {'Program', 'Time Spent', 'Most Recent'} }
+                )"></div>
+                <!-- If "byProgram" is included in ${controls} -->
+                <div th:if="${#lists.contains(controls, 'byProgram')}" th:insert="fragments/common :: drop-down (
+                    label='View:', options=${programs}
+                )"></div>
+                <!-- If "newBtn" is included in ${controls} -->
+                <button class="btn-orange" th:if="${#lists.contains(controls, 'newBtn')}" type="button">Add New</button>
+            </div>
         </header>
 
         <div class="theme-wrapper">
             <div class="theme-container" th:each="theme : ${themes}">
-                <label class="menu-container" th:classappend="${#fields.exists(theme, 'isActive') ? 'bg-black' : ''}">
-                    <img src="/images/ui/menu.png" alt="Menu"/>
-                    <select>
+                <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
+                    <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}" alt="Menu"/>
+                    <!-- <select>
                         <option value="" disabled selected></option>
                         <option value="">Mark as Completed</option>
                         <option value="">Edit</option>
-                    </select>
+                    </select> -->
                 </label>
-                <div class="theme-header" th:classappend="${#fields.exists(theme, 'isActive') ? 'bg-black' : ''}">
-                    <img src="${userImgDIr + theme.imgName}" alt="${theme.name}"/>
+                <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
+                    <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"/>
                     <div class="theme-title-container">
                         <h3 th:text="${theme.name}"></h3>
                         <!-- Show {completedAt} if completed. Otherwise, show 'Present' if routine, {deadline} if project. -->
-                        <p>
+                        <p class="font-small font-thin">
                             <span th:text="${theme.startedAt}"></span>
                             ~
                             <span th:text="${
                                 completedAt != null 
                                 ? compltedAt 
-                                : (#fields.exists(theme, 'isActive')
+                                : (theme.type == routineDescriptor
                                     ? 'Present'
                                     : theme.deadline)
                             }"></span>
                         </p>
                         <!-- Show progress if project, repeated days and time otherwise (it'd be a routine). -->
-                        <progress   th:if="${fields.exists(theme, 'timeEstimated')}"
-                                    th:value="${(timeSpent/timeEstimated)*100}" max="100">
+                        <progress   th:if="${theme.type == projectDescriptor}"
+                                    th:value="${(theme.timeSpent/theme.timeEstimated)*100}" max="100">
                         </progress>
-                        <p th:unless="${fields.exists(theme, 'timeEstimated')}">
+                        <p class="font-small font-thin" th:unless="${theme.type == projectDescriptor}">
                             <span th:text="${theme.repeatedOn}"></span>
-                            .<span th:text="${theme.startTime}"></span> ~ <span th:text="${theme.endTime}"></span>
+                            <span th:text="${theme.startTime}"></span> ~ <span th:text="${theme.endTime}"></span>
                         </p>
                     </div>
                 </div>

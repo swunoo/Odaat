@@ -12,10 +12,11 @@ html{
 
     --border-small: 5px;
     --border-mid: 10px;
-    --shadow-small: 1px 1px 5px #555;
+    --shadow-small: 1px 1px 3px #aaa;
     --user-input-height: 3em;
     --user-input-weigth: 10em;
     --input-width-large: 30em;
+    --theme-padding: 15px;
 }
 
 /* Default */
@@ -51,7 +52,7 @@ button, select {
     border: none;
     border-radius: var(--border-small);
     box-shadow: var(--shadow-small);
-    padding: 5px 10px;
+    padding: 5px 15px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -60,6 +61,10 @@ button, select {
 
 nav {
     padding: 2em 3em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--brand-blue-light);
 }
 
 nav img {
@@ -96,11 +101,13 @@ nav img {
 
 .bg-blue-dark { background-color: var(--brand-blue-dark); color: white; }
 .bg-gray-light { background-color: var(--brand-gray-light); }
+.bg-gray-dark { background-color: var(--brand-gray-dark); color: white; }
 .bg-black { background-color: black; color: white; }
+.bg-white { background-color: white; }
 
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }
-.btn-orange { background-color: var(--brand-orange); color: white;}
+.btn-orange { background-color: var(--brand-orange); color: white; font-weight: 700;}
 
 .title-container {
     display: flex;
