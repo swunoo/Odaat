@@ -19,5 +19,4 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Started on 2023 September
 
 ## TODO
-* delete Image table
 * Q: Is the model passed from Controller or does thymeleaf just goes around grabbing properties?
