@@ -92,6 +92,7 @@ nav img {
 .font-big { font-size: 25px; }
 .font-small { font-size: 10px; }
 .font-title { font-family: 'Itim', cursive; }
+.font-right { text-align: right; }
 
 .bg-blue-dark { background-color: var(--brand-blue-dark); color: white; }
 .bg-gray-light { background-color: var(--brand-gray-light); }

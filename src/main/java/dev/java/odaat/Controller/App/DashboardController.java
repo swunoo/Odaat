@@ -34,9 +34,9 @@ public class DashboardController {
 
         // imgName = t_[themeId]_[imgName]
 
-        Theme mockProject = new Project(1, "Java", "t_1_java.png", ProgramType.JOB, LocalDate.of(2023, 5, 10), 10, null, 20);
+        Theme mockProject = new Project(1, "Java", "Lorem Ipsum Dolor", "t_1_java.png", ProgramType.JOB, LocalDate.of(2023, 5, 10), null, 10, 20, LocalDate.of(2025, 10, 10));
 
-        Theme mockRoutine = new Routine(2, "Chores", "t_2_mybatis.png", ProgramType.CHORES , LocalDate.of(2020, 1, 1), 300, Arrays.asList(DayType.SAT, DayType.SUN), LocalTime.of(10, 15), LocalTime.of(15, 10), true);
+        Theme mockRoutine = new Routine(2, "Chores", "Lorem Ipsum Dolor Sit Amet", "t_2_mybatis.png", ProgramType.CHORES , LocalDate.of(2020, 1, 1), null, 300, Arrays.asList(DayType.SAT, DayType.SUN), LocalTime.of(10, 15), LocalTime.of(15, 10), true);
 
         // Mock data for testing
         model.addAttribute(

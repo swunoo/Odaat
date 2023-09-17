@@ -5,13 +5,13 @@ import java.time.LocalDate;
 import dev.java.odaat.Entity.Enums.ProgramType;
 
 public class Project extends Theme {
-    LocalDate completedAt;
     double timeEstimated;
+    LocalDate deadline;
 
-    public Project(int id, String name, String imgName, ProgramType program, LocalDate createdAt, double timeSpent, LocalDate completedAt, double timeEstimated) {
-        super(id, name, imgName, program, createdAt, timeSpent);
-        this.completedAt = completedAt;
+    public Project(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt,LocalDate completedAt, double timeSpent,  double timeEstimated, LocalDate deadline) {
+        super(id, name, description, imgName, program, startedAt, completedAt, timeSpent);
         this.timeEstimated = timeEstimated;
+        this.deadline = deadline;
     }
 
     public int getId() {
@@ -22,6 +22,10 @@ public class Project extends Theme {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    
     public String getImgName() {
         return imgName;
     }
@@ -30,8 +34,8 @@ public class Project extends Theme {
         return program;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDate getStartedDate() {
+        return startedAt;
     }
 
     public double getTimeSpent() {
@@ -44,5 +48,9 @@ public class Project extends Theme {
 
     public double getTimeEstimated() {
         return timeEstimated;
+    }
+
+    public LocalDate getDeadline() {
+        return deadline;
     }
 }

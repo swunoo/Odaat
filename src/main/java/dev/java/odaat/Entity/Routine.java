@@ -14,8 +14,8 @@ public class Routine extends Theme {
     LocalTime endTime;
     boolean isActive;
 
-    public Routine(int id, String name, String imgName, ProgramType program, LocalDate createdAt, double timeSpent, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
-        super(id, name, imgName, program, createdAt, timeSpent);
+    public Routine(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
+        super(id, name, description, imgName, program, startedAt, completedAt, timeSpent);
         this.repeatedOn = repeatedOn;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -30,6 +30,10 @@ public class Routine extends Theme {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    
     public String getImgName() {
         return imgName;
     }
@@ -38,8 +42,12 @@ public class Routine extends Theme {
         return program;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDate getStartedAt() {
+        return startedAt;
+    }
+
+    public LocalDate getCompltedAt() {
+        return startedAt;
     }
 
     public double getTimeSpent() {

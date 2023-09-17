@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odaat | Overview</title>
+    <link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+    <div th:replace="fragments/common :: header"></div>
+    <div th:replace="fragments/themes :: theme-group (
+        title = 'Ongoing',
+        themes = ${themes},
+        controls = ${ {'byProgram', 'newBtn'} },
+        programs = ${programs},
+        userImgDir = ${userImgDir},
+
+    )"></div>
+    <div th:replace="fragments/themes :: theme-group (
+        title = 'Previous',
+        themes = ${themes},
+        controls = ${ {'sortOption'} },
+        programs = ${programs},
+        userImgDir = ${userImgDir},
+
+    )"></div>
+</body>
+</html>
