@@ -110,6 +110,7 @@ nav img {
 
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }
+.btn-blue-dark { background-color: var(--brand-blue-dark); color: white;}
 .btn-orange { background-color: var(--brand-orange); color: white; font-weight: 700;}
 
 .title-container {

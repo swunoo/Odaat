@@ -10,7 +10,10 @@
     <!-- Header -->
     <div th:replace="fragments/common :: header"></div>
     <!-- Modal -->
-    <div id="overviewModal" class="hidden modal-wrapper" th:insert="fragments/modals :: theme-modal"></div>
+    <div id="overviewModal" class=" modal-wrapper"
+    th:insert="fragments/modals :: theme-modal (
+        programs = ${programs}
+    )"></div>
     <!-- Ongoing Themes -->
     <div th:replace="fragments/themes :: theme-group (
         title = 'Ongoing',
@@ -34,9 +37,18 @@
         userImgDir = ${userImgDir}
     )"></div>
     <script>
-        const MODAL_ID = 'overviewModal';
-        const ADD_BTN_ID = 'addThemeBtn';
+        // Mapping DOM elements for JS:
+        const idMapper = id => document.getElementById(id);
+
+        // Modal elements
+        const { MODAL, ADD_BTN } = ['overviewModal', 'addThemeBtn'].map(idMapper);
+
+        // Modal form elements
+        const {
+            IMG, NAME, PROMPT, TYPE, PROGRAM, DETAILS, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
+        } = ['mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-details', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
     </script>
+
     <script src="js/overview.js"></script>
 </body>
 </html>

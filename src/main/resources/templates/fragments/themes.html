@@ -28,11 +28,6 @@
             <div class="theme-container" th:unless="${#lists.isEmpty(themes)}" th:each="theme : ${themes}">
                 <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
                     <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}" alt="Menu"/>
-                    <!-- <select>
-                        <option value="" disabled selected></option>
-                        <option value="">Mark as Completed</option>
-                        <option value="">Edit</option>
-                    </select> -->
                 </label>
                 <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
                     <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"/>
