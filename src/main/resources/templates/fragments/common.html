@@ -15,14 +15,18 @@
         </div>
     </nav>
 
-    <label th:fragment="drop-down (label, options)" th:with="id=${id} ?: ''" th:id="${id}" class="flex gap-2">
+    <label  th:fragment="drop-down (label, options)"
+            th:with="id=${id} ?: '', multiple=${multiple} ?: 'false'"
+            th:id="${id}" class="flex gap-2">
         <p th:text="${label}"></p>
-        <select th:id="${label}">
+        <select th:id="${label}" th:multiple="${multiple}">
             <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
         </select>
     </label>
 
-    <label th:fragment="input (label)" th:with="id=${id} ?: '', disabled=${disabled} ?: 'false'" th:id="${id}" class="input-label">
+    <label th:fragment="input (label)"
+        th:with="id=${id} ?: '', disabled=${disabled} ?: 'false', type=${type} ?: 'text'"
+        th:type="${type}" th:id="${id}" class="input-label">
         <p th:text="${label}"></p>
         <input type="text" th:disabled="${disabled}"/>
     </label>

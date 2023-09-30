@@ -11,9 +11,10 @@
     <!-- Header -->
     <div th:replace="fragments/common :: header"></div>
     <!-- Modal -->
-    <div id="overviewModal" class=" modal-wrapper"
+    <div id="overviewModal" class="modal-wrapper"
     th:insert="fragments/modal :: theme-modal (
-        programs = ${programs}
+        programs = ${programs},
+        days = ${days}
     )"></div>
     <!-- Ongoing Themes -->
     <div th:replace="fragments/themes :: theme-group (

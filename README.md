@@ -20,3 +20,16 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 
 ## TODO
 * Q: Is the model passed from Controller or does thymeleaf just goes around grabbing properties?
+
+## STEPS
+* UI Design
+* ER, DDL
+* API routes (sample)
+* Controllers, HTML&CSS, modification of ER and DDL
+* JavaScript
+
+* Datepicker UIs
+* CRUD apis
+* Connecting with js
+
+* Security

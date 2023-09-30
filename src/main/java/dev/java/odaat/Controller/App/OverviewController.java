@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dev.java.odaat.Entity.Theme;
+import dev.java.odaat.Entity.Enums.DayType;
 import dev.java.odaat.Entity.Enums.ProgramType;
 import dev.java.odaat.Entity.Enums.ThemeType;
 import dev.java.odaat.Service.ThemeService;
@@ -36,6 +37,7 @@ public class OverviewController {
         model.addAttribute("projectDescriptor", ThemeType.PROJECT);
         model.addAttribute("routineDescriptor", ThemeType.ROUTINE);
         model.addAttribute("programs", ProgramType.values());
+        model.addAttribute("days", DayType.values());
         model.addAttribute("userImgDir", userImgDir);
         
         return "overview";

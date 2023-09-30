@@ -130,7 +130,8 @@ nav img {
 .bg-white { background-color: white; }
 .bg-blue-forced { background-color: var(--brand-blue-dark) !important;}
 
-.hidden { display: none !important; }
+.hidden{ display: none; }
+.hidden-forced { display: none !important; }
 
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }

@@ -5,7 +5,7 @@
     <title>Odaat | Modals</title>
 </head>
 <body>
-    <form class="modal-container" th:fragment="theme-modal (programs)">
+    <form class="modal-container" th:fragment="theme-modal (programs, days)">
         <img id="mt-close" src="/images/ui/close.png" alt="Close"/>
         <header>
             <img id="mt-img" src="/images/ui/placeholder.png" alt="Click to Edit"/>
@@ -20,16 +20,17 @@
                 <p>Details</p>
                 <textarea rows="5"></textarea>
             </label>
-            <div th:replace="fragments/common :: input (label='Start', id='mt-start')"></div>
-            <div th:replace="fragments/common :: input (label='Deadline', id='mt-deadline')"></div>
-            <div th:replace="fragments/common :: input (label='Days', id='mt-days')"></div>
+            <div th:replace="fragments/common :: input (label='Start', id='mt-start', type='date')"></div>
+            <div th:replace="fragments/common :: input (label='Deadline', id='mt-deadline', type='date')"></div>
+            <div th:replace="fragments/common :: drop-down (
+                label='Days', options=${days}, id='mt-days', multiple='true')"></div>
             <div th:replace="fragments/common :: drop-down (
                 label='Status', options=${ {'IN PROG.', 'ENDED'} }, id='mt-status')"></div>
-            <div th:replace="fragments/common :: input (label='End', id='mt-end', disabled='true')"></div>
-            <div th:replace="fragments/common :: input (label='Spent', id='mt-spent')"></div>
-            <div th:replace="fragments/common :: input (label='Estimated', id='mt-estimated')"></div>
-            <div th:replace="fragments/common :: input (label='From', id='mt-from')"></div>
-            <div th:replace="fragments/common :: input (label='To', id='mt-to')"></div>
+            <div th:replace="fragments/common :: input (label='End', id='mt-end', disabled='true', type='date')"></div>
+            <div th:replace="fragments/common :: input (label='Spent', id='mt-spent', type='number')"></div>
+            <div th:replace="fragments/common :: input (label='Estimated', id='mt-estimated', type='number')"></div>
+            <div th:replace="fragments/common :: input (label='From', id='mt-from', type='datetime-local')"></div>
+            <div th:replace="fragments/common :: input (label='To', id='mt-to', type='datetime-local')"></div>
         </div>
         <button id="mt-submit" class="btn-blue-dark" type="submit">CREATE</button>
     </form>

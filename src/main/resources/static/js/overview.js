@@ -4,10 +4,10 @@ ADD_BTN.addEventListener('click', e => {
 });
 
 // Changing modal inputs based on type.
-[DAYS, FROM, TO].forEach(item => item.classList.add('hidden')); // Initial
+[DAYS, FROM, TO].forEach(item => item.classList.add('hidden-forced')); // Initial
 TYPE.addEventListener('change', e => {
     TYPE.children[1].classList.toggle('bg-blue-forced');
-    [DAYS, FROM, TO, DEADLINE, ESTIMATED].forEach(item => item.classList.toggle('hidden'));
+    [DAYS, FROM, TO, DEADLINE, ESTIMATED].forEach(item => item.classList.toggle('hidden-forced'));
 });
 
 // Changing disabled attribute for END.
