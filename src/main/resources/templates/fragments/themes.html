@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
-    <main class="theme-group-container" th:fragment="theme-group (title, themes, controls, programs, userImgDir)">
+    <main class="theme-group-container" th:fragment="theme-group (title, themes, controls, addBtnId, programs, userImgDir)">
         <header class="title-container">
             <p class="font-title font-big font-bold" th:text="${title}"></p>
             <div class="flex gap-3">
@@ -19,19 +19,15 @@
                     label='View:', options=${programs}
                 )"></div>
                 <!-- If "newBtn" is included in ${controls} -->
-                <button class="btn-orange" th:if="${#lists.contains(controls, 'newBtn')}" type="button">Add New</button>
+                <button class="btn-orange" th:id="${addBtnId}" th:if="${#lists.contains(controls, 'newBtn')}" type="button">Add New</button>
             </div>
         </header>
 
         <div class="theme-wrapper">
-            <div class="theme-container" th:each="theme : ${themes}">
+            <p class="font-center" th:if="${#lists.isEmpty(themes)}">No Data Yet.</p>
+            <div class="theme-container" th:unless="${#lists.isEmpty(themes)}" th:each="theme : ${themes}">
                 <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
                     <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}" alt="Menu"/>
-                    <!-- <select>
-                        <option value="" disabled selected></option>
-                        <option value="">Mark as Completed</option>
-                        <option value="">Edit</option>
-                    </select> -->
                 </label>
                 <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
                     <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"/>

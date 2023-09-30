@@ -3,28 +3,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odaat | Overview</title>
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/overview.css">
 </head>
 <body>
+    <!-- Header -->
     <div th:replace="fragments/common :: header"></div>
+    <!-- Modal -->
+    <div id="overviewModal" class=" modal-wrapper"
+    th:insert="fragments/modals :: theme-modal (
+        programs = ${programs}
+    )"></div>
+    <!-- Ongoing Themes -->
     <div th:replace="fragments/themes :: theme-group (
         title = 'Ongoing',
         themes = ${currentThemes},
         projectDescription = ${projectDescription},
         routineDescription = ${routineDescription},
         controls = ${ {'byProgram', 'newBtn'} },
+        addBtnId = 'addThemeBtn',
         programs = ${programs},
         userImgDir = ${userImgDir}
     )"></div>
+    <!-- Previous Themes -->
     <div th:replace="fragments/themes :: theme-group (
         title = 'Previous',
         themes = ${previousThemes},
         projectDescriptor = ${projectDescriptor},
         routineDescriptor = ${routineDescriptor},
         controls = ${ {'sortOption'} },
+        addBtnId = '',
         programs = ${programs},
         userImgDir = ${userImgDir}
     )"></div>
+    <script>
+        // Mapping DOM elements for JS:
+        const idMapper = id => document.getElementById(id);
+
+        // Modal elements
+        const { MODAL, ADD_BTN } = ['overviewModal', 'addThemeBtn'].map(idMapper);
+
+        // Modal form elements
+        const {
+            IMG, NAME, PROMPT, TYPE, PROGRAM, DETAILS, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
+        } = ['mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-details', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
+    </script>
+
+    <script src="js/overview.js"></script>
 </body>
 </html>

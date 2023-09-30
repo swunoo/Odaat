@@ -98,6 +98,7 @@ nav img {
 .font-small { font-size: 10px; }
 .font-title { font-family: 'Itim', cursive; }
 .font-right { text-align: right; }
+.font-center { text-align: center; }
 
 .bg-blue-dark { background-color: var(--brand-blue-dark); color: white; }
 .bg-gray-light { background-color: var(--brand-gray-light); }
@@ -105,8 +106,11 @@ nav img {
 .bg-black { background-color: black; color: white; }
 .bg-white { background-color: white; }
 
+.hidden { display: none; }
+
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }
+.btn-blue-dark { background-color: var(--brand-blue-dark); color: white;}
 .btn-orange { background-color: var(--brand-orange); color: white; font-weight: 700;}
 
 .title-container {

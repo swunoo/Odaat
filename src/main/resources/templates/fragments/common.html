@@ -6,7 +6,7 @@
 </head>
 <body>
     <nav class="flex justify-between" th:fragment="header">
-        <img src="/images/ui/logo.png" alt="Logo">
+        <a th:href="@{/}"><img src="/images/ui/logo.png" alt="Logo"></a>
         <div class="flex gap-3">
             <a th:href="@{/dashboard}">Dashboard</a>
             <a th:href="@{/overview}">Overview</a>
@@ -20,8 +20,11 @@
         <select th:id="${label}">
             <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
         </select>
+    </label>
 
-        <!-- <img src="/images/ui/down-arrow.svg" alt="Select"/> -->
+    <label th:fragment="input (label)" class="flex gap-2">
+        <p th:text="${label}"></p>
+        <input type="text" />
     </label>
 </body>
 </html>
