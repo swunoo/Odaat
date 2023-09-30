@@ -61,13 +61,25 @@ button, select, input {
     justify-content: space-evenly;
 }
 
-button, select {
-    cursor: pointer;
-    
+textarea {
+    border: none;
+    padding: 5px 15px;
+    border-radius: var(--border-small);
+    box-shadow: var(--shadow-small);
 }
 
-input {
-    
+button, select {
+    cursor: pointer;
+}
+
+select {
+    border-right: 1em solid #0000;
+}
+
+input:disabled {
+    box-shadow: none;
+    border: 1px solid var(--brand-gray-light);
+    color: var(--brand-gray-light);
 }
 
 nav {
@@ -116,8 +128,9 @@ nav img {
 .bg-gray-dark { background-color: var(--brand-gray-dark); color: white; }
 .bg-black { background-color: black; color: white; }
 .bg-white { background-color: white; }
+.bg-blue-forced { background-color: var(--brand-blue-dark) !important;}
 
-.hidden { display: none; }
+.hidden { display: none !important; }
 
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }
