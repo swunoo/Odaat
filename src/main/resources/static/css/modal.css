@@ -1,25 +1,72 @@
 .modal-wrapper {
+    position: absolute;
+    height: 100%;
     width: 100%;
-    background-color: #000e;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #000a;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-container {
     background-color: white;
-    box-shadow: var(--shadow-small);
-    margin: auto;
+    box-shadow: var(--shadow-mid);
     width:fit-content;
-    padding:var(--border-mid);
+    padding:var(--modal-padding);
 }
 
 .modal-container > img {
     margin-left: 95%;
+    cursor: pointer;
 }
 
-.modal-container header {
+.modal-container > header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--border-mid);
     padding: 0 2em;
+    margin: 2em 0;
     border-bottom: 1px solid var(--brand-blue-dark);
+}
 
+.modal-container > header > img {
+    width: 3.5em;
+    cursor: pointer;
+}
+
+.modal-container > header > input {
+    box-shadow: none;
+}
+
+.modal-container > div > label, .input-label {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: var(--border-small);
+    justify-content: space-between;
+}
+
+.modal-container > div {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap:var(--border-small) var(--user-input-height);
+}
+
+.modal-container > button {
+    margin-left: auto;
+}
+
+/* Colors */
+#mt-type > select { background-color: var(--brand-orange);}
+#mt-program > select { background-color: var(--brand-blue-light);}
+#mt-status > select { background-color: var(--brand-blue-light);}
+
+@media screen and (max-width: 600px) {
+    .modal-container > div {
+        grid-template-columns: 1fr;
+    }
 }

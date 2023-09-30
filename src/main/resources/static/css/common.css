@@ -13,10 +13,13 @@ html{
     --border-small: 5px;
     --border-mid: 10px;
     --shadow-small: 1px 1px 3px #aaa;
+    --shadow-mid: 2px 2px 5px #aaa;
     --user-input-height: 3em;
     --user-input-weigth: 10em;
     --input-width-large: 30em;
     --theme-padding: 15px;
+    --modal-padding: 25px;
+
 }
 
 /* Default */
@@ -45,7 +48,7 @@ a:hover {
     border-bottom: 2px solid white;
 }
 
-button, select {
+button, select, input {
     height: var(--user-input-height);
     min-width: var(--user-input-width);
     background-color: white;
@@ -56,7 +59,15 @@ button, select {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+button, select {
     cursor: pointer;
+    
+}
+
+input {
+    
 }
 
 nav {
