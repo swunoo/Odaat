@@ -1,0 +1,25 @@
+.modal-wrapper {
+    width: 100%;
+    background-color: #000e;
+}
+
+.modal-container {
+    background-color: white;
+    box-shadow: var(--shadow-small);
+    margin: auto;
+    width:fit-content;
+    padding:var(--border-mid);
+}
+
+.modal-container > img {
+    margin-left: 95%;
+}
+
+.modal-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2em;
+    border-bottom: 1px solid var(--brand-blue-dark);
+
+}

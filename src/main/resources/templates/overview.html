@@ -5,6 +5,7 @@
     <title>Odaat | Overview</title>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="css/modal.css">
 </head>
 <body>
     <!-- Header -->
@@ -41,12 +42,12 @@
         const idMapper = id => document.getElementById(id);
 
         // Modal elements
-        const { MODAL, ADD_BTN } = ['overviewModal', 'addThemeBtn'].map(idMapper);
+        const [ MODAL, ADD_BTN ] = ['overviewModal', 'addThemeBtn'].map(idMapper);
 
         // Modal form elements
-        const {
-            IMG, NAME, PROMPT, TYPE, PROGRAM, DETAILS, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
-        } = ['mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-details', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
+        const [
+            CLOSE, IMG, NAME, PROMPT, TYPE, PROGRAM, DETAILS, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
+        ] = ['mt-close', 'mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-details', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
     </script>
 
     <script src="js/overview.js"></script>

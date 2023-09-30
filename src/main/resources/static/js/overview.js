@@ -1,5 +1,5 @@
 // Clicking the Add button.
-addBtn.addEventListener('click', e => {
-    modal.style.display = 'block';
+ADD_BTN.addEventListener('click', e => {
+    MODAL.style.display = 'block';
 })
 
