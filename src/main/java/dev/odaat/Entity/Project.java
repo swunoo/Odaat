@@ -9,14 +9,14 @@ public class Project extends Theme {
     double timeEstimated;
     LocalDate deadline;
 
-    public Project(String name, String description, String imgName, ProgramType program, LocalDate startedAt,LocalDate completedAt, double timeSpent,  double timeEstimated, LocalDate deadline) {
-        super(ThemeType.PROJECT, name, description, imgName, program, startedAt, completedAt, timeSpent);
+    public Project(String name, ProgramType program, double timeSpent, String description, String imgName,  LocalDate startedAt, LocalDate completedAt,  double timeEstimated, LocalDate deadline) {
+        super(name, program, timeSpent, ThemeType.PROJECT, description, imgName, startedAt, completedAt);
         this.timeEstimated = timeEstimated;
         this.deadline = deadline;
     }
 
-    public Project(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt,LocalDate completedAt, double timeSpent,  double timeEstimated, LocalDate deadline) {
-        super(id, ThemeType.PROJECT, name, description, imgName, program, startedAt, completedAt, timeSpent);
+    public Project(int id, String name, ProgramType program, double timeSpent, String description, String imgName,  LocalDate startedAt, LocalDate completedAt, double timeEstimated, LocalDate deadline) {
+        super(id, name, program, timeSpent, ThemeType.PROJECT, description, imgName, startedAt, completedAt);
         this.timeEstimated = timeEstimated;
         this.deadline = deadline;
     }

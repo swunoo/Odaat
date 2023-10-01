@@ -33,6 +33,7 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
+
         // factoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
 
 
@@ -43,7 +44,14 @@ public class MyBatisConfig {
         
         System.out.println("EXISTS: " + file.exists());
 
-
+        // Create a MyBatis Configuration instance
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        
+        // Set the mapUnderscoreToCamelCase option to true
+        configuration.setMapUnderscoreToCamelCase(true);
+        
+        factoryBean.setConfiguration(configuration);
+        
         return factoryBean.getObject();
     }
 

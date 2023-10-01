@@ -16,7 +16,7 @@ public interface ThemeService {
 
     public Optional<Theme> create(Theme theme) throws IllegalArgumentException;
     
-    public Optional<Theme> update(int id, Theme theme) throws IllegalArgumentException;
+    public Optional<Theme> update(int id, Theme theme);
 
     public boolean delete(int id);
 

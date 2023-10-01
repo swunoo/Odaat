@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="dev.odaat.Mapper.RoutineMapper">
+
+    <select id="selectByThemeId" parameterType="int" resultType="dev.odaat.Entity.Routine">
+        SELECT * FROM routine WHERE theme_id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="dev.odaat.Entity.Theme">
+        INSERT INTO routine(
+            theme_id, repeated_on, is_active, start_time, end_time 
+        ) VALUES (
+            #{id},
+            ARRAY[#{repeatedOn[0]}, #{repeatedOn[1]}, #{repeatedOn[2]}, #{repeatedOn[3]}, #{repeatedOn[4]}, #{repeatedOn[5]}, #{repeatedOn[6]}, #{repeatedOn[7]}]::DayType[],
+            #{isActive}, #{startTime}, #{endTime}
+        );
+    </insert>
+
+    <update id="update" parameterType="dev.odaat.Entity.Theme">
+        UPDATE routine
+            SET 
+                repeated_on = ARRAY[#{repeatedOn[0]}, #{repeatedOn[1]}, #{repeatedOn[2]}, #{repeatedOn[3]}, #{repeatedOn[4]}, #{repeatedOn[5]}, #{repeatedOn[6]}, #{repeatedOn[7]}]::DayType[],
+                is_active = #{isActive}, start_time = #{startTime}, end_time = #{endTime}
+            WHERE theme_id=#{id}
+        RETURNING 1;
+    </update>
+</mapper>

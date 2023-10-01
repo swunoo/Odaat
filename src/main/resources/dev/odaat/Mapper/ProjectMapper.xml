@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dev.odaat.Mapper.ProjectMapper">
+
+    <select id="selectByThemeId" parameterType="int" resultType="dev.odaat.Entity.Project">
+        SELECT * FROM project WHERE theme_id=#{id}
+    </select>
+
+    <insert id="insert" parameterType="dev.odaat.Entity.Theme">
+        INSERT INTO project(
+            theme_id, time_estimated, deadline 
+        ) VALUES (
+            #{id}, #{timeEstimated}, #{deadline}
+        );
+    </insert>
+
+    <update id="update" parameterType="dev.odaat.Entity.Theme">
+        UPDATE project
+            SET 
+                time_estimated = #{timeEstimated}, deadline = #{deadline}
+            WHERE theme_id=#{id}
+        RETURNING 1;
+    </update>
+</mapper>

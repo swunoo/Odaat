@@ -7,7 +7,7 @@ CREATE TYPE ProgramType AS ENUM (
 );
 
 CREATE TYPE DayType AS ENUM (
-    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'HOLIDAY', 'ABSENCE'
+    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'HOLIDAY', 'ABSENT'
 );
 
 -- Tables

@@ -12,8 +12,10 @@ import dev.odaat.Entity.Theme;
 @Mapper
 public interface ProjectMapper {
 
-    int insert(@Param("project") Project project);
+    Project selectByThemeId(int id);
+
+    int insert(Project project);
     
-    int update(@Param("project") Project project);
+    int update(Project project);
 
 }

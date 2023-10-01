@@ -72,16 +72,10 @@ public class MockerService {
 
         // Deleting 1 project, 1 routine.
         System.out.println("==========DELETING==========");
+        System.out.println("All projects and routines:BEFORE - " + themeService.getAll().size());
         themeService.delete(proj1.getId());
         themeService.delete(rout2.getId());
-        System.out.println("All projects and routines:");
-        System.out.println("number: " + themeService.getAll().size());
-
-
-        // Attempting to update a deleted project.
-        // System.out.println("==========UPDATING NULL==========");
-        // themeService.update(proj1.getId(), fakeProject());
-
+        System.out.println("All projects and routines:AFTER - " + themeService.getAll().size());
 
     }
 
@@ -89,44 +83,45 @@ public class MockerService {
         return new Project(
                 i,
                 faker.name().fullName(),
+                ProgramType.LEARNING,
+                faker.number().numberBetween(1, 30),
                 faker.lorem().paragraph(),
                 "t_1_java.png",
-                ProgramType.LEARNING,
                 LocalDate.of(faker.number().numberBetween(2020, 2021), faker.number().numberBetween(1, 12),
-                        faker.number().numberBetween(1, 28)),
+                faker.number().numberBetween(1, 28)),
                 completedAt,
-                faker.number().numberBetween(1, 30),
                 faker.number().numberBetween(30, 100),
                 LocalDate.of(faker.number().numberBetween(2025, 2030), faker.number().numberBetween(1, 12),
-                        faker.number().numberBetween(1, 28)));
+                faker.number().numberBetween(1, 28)));
     }
 
     private Project fakeProject() {
         LocalDate completedAt = Math.random() > 0.5 ? LocalDate.of(faker.number().numberBetween(2022, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)) : null;
         return new Project(
                 faker.name().fullName(),
+                ProgramType.LEARNING,
+                faker.number().numberBetween(1, 30),
                 faker.lorem().paragraph(),
                 "t_1_java.png",
-                ProgramType.LEARNING,
                 LocalDate.of(faker.number().numberBetween(2020, 2021), faker.number().numberBetween(1, 12),
-                        faker.number().numberBetween(1, 28)),
+                faker.number().numberBetween(1, 28)),
                 completedAt,
-                faker.number().numberBetween(1, 30),
                 faker.number().numberBetween(30, 100),
                 LocalDate.of(faker.number().numberBetween(2025, 2030), faker.number().numberBetween(1, 12),
-                        faker.number().numberBetween(1, 28)));
+                faker.number().numberBetween(1, 28)));
     }
 
     private Routine fakeRoutineWithID(int i, LocalDate completedAt){
         return new Routine(
         i,
         faker.name().fullName(),
+        ProgramType.LEARNING,
+        faker.number().numberBetween(1, 30),
         faker.lorem().paragraph(),
-        "t_2_mybatis.png",
-        ProgramType.CHORES,
-        LocalDate.of(faker.number().numberBetween(2020, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)),
+        "t_1_java.png",
+        LocalDate.of(faker.number().numberBetween(2020, 2021), faker.number().numberBetween(1, 12),
+        faker.number().numberBetween(1, 28)),
         completedAt,
-        faker.number().numberBetween(30, 100),
         Arrays.asList(DayType.SUN, DayType.ABSENT, DayType.TUE),
         LocalTime.of(faker.number().numberBetween(1, 12), faker.number().numberBetween(0, 59)),
         LocalTime.of(faker.number().numberBetween(12, 24), faker.number().numberBetween(0, 59)),
@@ -135,15 +130,23 @@ public class MockerService {
 
     private Routine fakeRoutine(){
         LocalDate completedAt = Math.random() > 0.5 ? LocalDate.of(faker.number().numberBetween(2022, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)) : null;
+        DayType[] daysArray = new DayType[8];
+        daysArray[0] = DayType.SAT;
+        daysArray[1] = DayType.SUN;
+        daysArray[5] = DayType.MON;
+        daysArray[6] = DayType.ABSENT;
+        daysArray[7] = DayType.HOLIDAY;
+
         return new Routine(
             faker.name().fullName(),
+            ProgramType.LEARNING,
+            faker.number().numberBetween(1, 30),
             faker.lorem().paragraph(),
-            "t_2_mybatis.png",
-            ProgramType.CHORES,
-            LocalDate.of(faker.number().numberBetween(2020, 2023), faker.number().numberBetween(1, 12), faker.number().numberBetween(1, 28)),
+            "t_1_java.png",
+            LocalDate.of(faker.number().numberBetween(2020, 2021), faker.number().numberBetween(1, 12),
+            faker.number().numberBetween(1, 28)),
             completedAt,
-            faker.number().numberBetween(30, 100),
-            Arrays.asList(DayType.SUN, DayType.ABSENT, DayType.TUE),
+            Arrays.asList(daysArray),
             LocalTime.of(faker.number().numberBetween(1, 12), faker.number().numberBetween(0, 59)),
             LocalTime.of(faker.number().numberBetween(12, 24), faker.number().numberBetween(0, 59)),
             Math.random() > 0.2 ? true : false);

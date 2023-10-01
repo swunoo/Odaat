@@ -26,11 +26,13 @@ public class ThemeServiceImpl implements ThemeService {
     @Autowired RoutineMapper routineMapper;
     
     public List<Theme> getAll(){
+        // TODO: make this work for project and routine.
         return themeMapper.selectAll();
     }
 
     @Override
     public Optional<Theme> getById(int id) {
+        // TODO: make this work for project and routine.
         return Optional.of(themeMapper.selectById(id));
     }
 
@@ -39,8 +41,13 @@ public class ThemeServiceImpl implements ThemeService {
 
         if(theme.getType() == null) throw new IllegalArgumentException("Theme type is empty.");
 
+        System.out.println("before creation id = " + theme.getId());
+
         // Saves to theme.
-        int createdThemeID = themeMapper.add(theme);
+        themeMapper.add(theme);
+        int createdThemeID = theme.getId();
+
+        System.out.println("created id = " + createdThemeID);
 
         // Sets themeID.
         theme.setId(createdThemeID);
@@ -54,27 +61,36 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public Optional<Theme> update(int id, Theme theme) throws IllegalArgumentException {
+    public Optional<Theme> update(int id, Theme theme){
 
         if(theme.getType() == null) throw new IllegalArgumentException("Theme type is empty.");
+
+        System.out.println("ID to update: " + id);
 
         // Sets theme's id to provided id.
         theme.setId(id);
 
+        System.out.println("Theme's id: " + theme.getId());
+
+        System.out.println("theme name before: " + themeMapper.selectById(id).getName());
+
         // Updates theme.
         int updatedTheme = themeMapper.update(theme);
+
+        System.out.println("theme name after: " + themeMapper.selectById(id).getName());
+
+        System.out.println("updatedTheme = " + updatedTheme);
 
         // Updates project if it is a PROJECT, routine otherwise.
         int updatedProjOrRoutine = (theme.getType() == ThemeType.PROJECT )
                                     ? projectMapper.update((Project) theme)
                                     : routineMapper.update((Routine) theme);
 
-        // Returns theme if successful, error otherwise.
-        if(updatedTheme > 0 && updatedProjOrRoutine > 0){
-            return Optional.of(theme);
-        } else {
-            throw new IllegalArgumentException("Rows with provided ID cannot be updated.");
-        }
+        System.out.println("updatedProjOrRoutine = " + updatedProjOrRoutine);
+
+
+        // Returns theme if successful.
+        return Optional.of(theme);
     }
 
     @Override

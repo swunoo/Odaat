@@ -30,21 +30,21 @@ public class OverviewController {
     @GetMapping
     public String overview(Model model){
 
-        // mockerService.testThemes();
+        mockerService.testThemes();
 
-        List<Theme> themes = themeService.getAll();
+        // List<Theme> themes = themeService.getAll();
         
-        List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());
-        List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
+        // List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());
+        // List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
 
-        model.addAttribute("currentThemes", currentThemes);
-        model.addAttribute("previousThemes", previousThemes);
-        model.addAttribute("projectDescriptor", ThemeType.PROJECT);
-        model.addAttribute("routineDescriptor", ThemeType.ROUTINE);
-        model.addAttribute("programs", ProgramType.values());
-        model.addAttribute("days", DayType.values());
-        model.addAttribute("userImgDir", userImgDir);
+        // model.addAttribute("currentThemes", currentThemes);
+        // model.addAttribute("previousThemes", previousThemes);
+        // model.addAttribute("projectDescriptor", ThemeType.PROJECT);
+        // model.addAttribute("routineDescriptor", ThemeType.ROUTINE);
+        // model.addAttribute("programs", ProgramType.values());
+        // model.addAttribute("days", DayType.values());
+        // model.addAttribute("userImgDir", userImgDir);
         
-        return "overview";
+        return "index";
     }
 }

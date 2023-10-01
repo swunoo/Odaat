@@ -7,21 +7,21 @@ import dev.odaat.Entity.Enums.ThemeType;
 
 public class Theme {
     int id;
-    ThemeType type;
     String name;
+    ProgramType program;
+    double timeSpent;
+    ThemeType type;
     String description;
     String imgName;
-    ProgramType program;
     LocalDate startedAt;
     LocalDate completedAt;
-    double timeSpent;
 
-    public Theme(int id, ThemeType type, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
-        this(type, name, description, imgName, program, startedAt, completedAt, timeSpent);
+    public Theme(int id, String name, ProgramType program, double timeSpent, ThemeType type, String description, String imgName,  LocalDate startedAt, LocalDate completedAt) {
+        this(name, program, timeSpent, type, description, imgName, startedAt, completedAt);
         this.id = id;
     }
 
-    public Theme(ThemeType type, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
+    public Theme(String name, ProgramType program, double timeSpent, ThemeType type, String description, String imgName,  LocalDate startedAt, LocalDate completedAt) {
         this.type = type;
         this.name = name;
         this.description = description;

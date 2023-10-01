@@ -11,21 +11,21 @@ import dev.odaat.Entity.Enums.ThemeType;
 public class Routine extends Theme {
 
     List<DayType> repeatedOn;
+    boolean isActive;
     LocalTime startTime;
     LocalTime endTime;
-    boolean isActive;
 
 
-    public Routine(String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
-        super(ThemeType.ROUTINE, name, description, imgName, program, startedAt, completedAt, timeSpent);
+    public Routine(String name, ProgramType program, double timeSpent, String description, String imgName,  LocalDate startedAt, LocalDate completedAt, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
+        super(name, program, timeSpent, ThemeType.ROUTINE, description, imgName, startedAt, completedAt);
         this.repeatedOn = repeatedOn;
         this.startTime = startTime;
         this.endTime = endTime;
         this.isActive = isActive;
     }
 
-    public Routine(int id, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
-        super(id, ThemeType.ROUTINE, name, description, imgName, program, startedAt, completedAt, timeSpent);
+    public Routine(int id, String name, ProgramType program, double timeSpent, String description, String imgName,  LocalDate startedAt, LocalDate completedAt, List<DayType>  repeatedOn, LocalTime startTime, LocalTime endTime, boolean isActive) {
+        super(id, name, program, timeSpent, ThemeType.ROUTINE, description, imgName, startedAt, completedAt);
         this.repeatedOn = repeatedOn;
         this.startTime = startTime;
         this.endTime = endTime;
