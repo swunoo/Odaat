@@ -48,17 +48,17 @@ CREATE TABLE theme (
 );
 
 CREATE TABLE project (
-    completed_at DATE,
+    theme_id int PRIMARY KEY,
     estimated_time DECIMAL(7,3),
-    CONSTRAINT theme FOREIGN KEY (id) REFERENCES theme(id)
-) INHERITS (theme);
+    CONSTRAINT theme FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
+);
 
 CREATE TABLE routine (
+    theme_id int PRIMARY KEY,
     repeated_days DayType[8],
-    time TIME,
     is_active BOOLEAN,
-    CONSTRAINT theme FOREIGN KEY (id) REFERENCES theme(id)
-) INHERITS (theme);
+    CONSTRAINT theme FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
+);
 
 CREATE TABLE image (
     id serial PRIMARY KEY,

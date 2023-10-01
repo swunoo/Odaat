@@ -17,7 +17,11 @@ public class Theme {
     double timeSpent;
 
     public Theme(int id, ThemeType type, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
+        this(type, name, description, imgName, program, startedAt, completedAt, timeSpent);
         this.id = id;
+    }
+
+    public Theme(ThemeType type, String name, String description, String imgName, ProgramType program, LocalDate startedAt, LocalDate completedAt, double timeSpent) {
         this.type = type;
         this.name = name;
         this.description = description;
@@ -62,6 +66,10 @@ public class Theme {
 
     public double getTimeSpent() {
         return timeSpent;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

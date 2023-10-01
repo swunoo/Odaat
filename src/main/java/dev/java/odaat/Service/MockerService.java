@@ -17,6 +17,7 @@ import dev.java.odaat.Entity.Theme;
 import dev.java.odaat.Entity.Enums.DayType;
 import dev.java.odaat.Entity.Enums.ProgramType;
 
+// A faker service class for testing.
 @Service
 public class MockerService {
 

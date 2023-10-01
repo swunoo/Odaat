@@ -1,5 +1,6 @@
 package dev.java.odaat.Service;
 
+import java.sql.SQLDataException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,9 @@ public interface ThemeService {
     
     public Optional<Theme> getById(int id);
 
-    public Theme create(Theme theme);
+    public Optional<Theme> create(Theme theme) throws SQLDataException, IllegalArgumentException;
     
-    public Optional<Theme> update(Theme theme);
+    public Optional<Theme> update(int id, Theme theme) throws SQLDataException, IllegalArgumentException;
 
     public boolean delete(int id);
 

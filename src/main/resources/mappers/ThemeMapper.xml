@@ -1,24 +1,71 @@
+<!-- SQL for theme, project and routine -->
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="dev.java.odaat.Mapper.ThemeMapper">
     <select id="selectAll" resultType="dev.java.odaat.Entity.Theme">
         SELECT * FROM theme
     </select>
 
-    <select id="selectById" resultType="dev.java.odaat.Entity.Theme">
+    <select id="selectById" parameterType="int" resultType="dev.java.odaat.Entity.Theme">
         SELECT * FROM note WHERE id=#{id}
     </select>
 
-    <insert>
-
+    <insert id="insert" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        INSERT INTO theme(
+            name, program, time_spent, type, description, img_name, started_at, completed_at 
+        ) VALUES (
+            #{name}, #{program}, #{timeSpent}, #{type}, #{description}, #{imgName}, #{startedAt}, #{completedAt}
+        ) RETURNING id;
     </insert>
 
-    <update>
-        
+    <update id="update" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        UPDATE theme
+            SET 
+                name = #{name}, program = #{program}, time_spent = #{timeSpent}, type = #{type}, description = #{description}, img_name = #{imgName}, started_at = #{startedAt}, completed_at = #{completedAt}
+            WHERE id=#{id}
+        RETURNING count(*);
     </update>
 
-    <delete>
-
+    <delete id="delete" parameterType="int" resultType="int">
+        DELETE FROM theme WHERE id=#{id} RETURNING count(*);
     </delete>
+</mapper>
+
+<mapper namespace="dev.java.odaat.Mapper.ProjectMapper">
+    <insert id="insert" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        INSERT INTO project(
+            theme_id, time_estimated, deadline 
+        ) VALUES (
+            #{theme_id}, #{time_estimated}, #{deadline}
+        );
+    </insert>
+
+    <update id="update" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        UPDATE project
+            SET 
+                time_estimated = #{time_estimated}, deadline = {deadline}
+            WHERE theme_id=#{id}
+        RETURNING count(*);
+    </update>
+</mapper>
+
+<mapper namespace="dev.java.odaat.Mapper.RoutineMapper">
+    <insert id="insert" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        INSERT INTO routine(
+            theme_id, repeated_on, is_active, start_time, end_time 
+        ) VALUES (
+            #{theme_id}, #{repeated_on}, #{is_active}, #{start_time}, #{end_time}
+        );
+    </insert>
+
+    <update id="update" parameterType="dev.java.odaat.Entity.Theme" resultType="int">
+        UPDATE routine
+            SET 
+                repeated_on = #{repeated_on}, is_active = #{is_active}, start_time = #{start_time}, end_time = #{end_time}
+            WHERE theme_id=#{id}
+        RETURNING count(*);
+    </update>
 </mapper>
