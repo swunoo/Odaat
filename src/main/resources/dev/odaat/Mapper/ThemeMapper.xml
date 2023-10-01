@@ -1,5 +1,3 @@
-<!-- SQL for theme, project and routine -->
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -14,7 +12,7 @@
         SELECT * FROM note WHERE id=#{id}
     </select>
 
-    <insert id="add" parameterType="dev.odaat.Entity.Theme" resultType="int">
+    <insert id="add" parameterType="dev.odaat.Entity.Theme" useGeneratedKeys='true'>
         INSERT INTO theme(
             name, program, time_spent, type, description, img_name, started_at, completed_at 
         ) VALUES (
@@ -22,7 +20,7 @@
         ) RETURNING id;
     </insert>
 
-    <update id="update" parameterType="dev.odaat.Entity.Theme" resultType="int">
+    <update id="update" parameterType="dev.odaat.Entity.Theme">
         UPDATE theme
             SET 
                 name = #{name}, program = #{program}, time_spent = #{timeSpent}, type = #{type}, description = #{description}, img_name = #{imgName}, started_at = #{startedAt}, completed_at = #{completedAt}
@@ -30,13 +28,13 @@
         RETURNING count(*);
     </update>
 
-    <delete id="delete" parameterType="int" resultType="int">
+    <delete id="delete" parameterType="int">
         DELETE FROM theme WHERE id=#{id} RETURNING count(*);
     </delete>
 </mapper>
 <!-- 
 <mapper namespace="dev.odaat.Mapper.ProjectMapper">
-    <insert id="insert" parameterType="dev.odaat.Entity.Theme" resultType="int">
+    <insert id="insert" parameterType="dev.odaat.Entity.Theme" resultType="int" useGeneratedKeys='true'>
         INSERT INTO project(
             theme_id, time_estimated, deadline 
         ) VALUES (
@@ -54,7 +52,7 @@
 </mapper>
 
 <mapper namespace="dev.odaat.Mapper.RoutineMapper">
-    <insert id="insert" parameterType="dev.odaat.Entity.Theme" resultType="int">
+    <insert id="insert" parameterType="dev.odaat.Entity.Theme" resultType="int" useGeneratedKeys='true'>
         INSERT INTO routine(
             theme_id, repeated_on, is_active, start_time, end_time 
         ) VALUES (
