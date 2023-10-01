@@ -28,7 +28,7 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Controllers, HTML&CSS, modification of ER and DDL
 * JavaScript
 
-* Datepicker UIs
+* Datepicker/timepicker/multiselect
 * CRUD apis
 * Connecting with js
 

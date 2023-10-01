@@ -26,9 +26,9 @@
 
     <label th:fragment="input (label)"
         th:with="id=${id} ?: '', disabled=${disabled} ?: 'false', type=${type} ?: 'text'"
-        th:type="${type}" th:id="${id}" class="input-label">
+        th:id="${id}" class="input-label">
         <p th:text="${label}"></p>
-        <input type="text" th:disabled="${disabled}"/>
+        <input type="text" th:disabled="${disabled}" th:type="${type}"/>
     </label>
 </body>
 </html>

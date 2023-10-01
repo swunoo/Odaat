@@ -29,6 +29,7 @@ public class OverviewController {
     @GetMapping
     public String overview(Model model){
         List<Theme> themes = themeService.getAll();
+        
         List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());
         List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
 

@@ -29,8 +29,8 @@
             <div th:replace="fragments/common :: input (label='End', id='mt-end', disabled='true', type='date')"></div>
             <div th:replace="fragments/common :: input (label='Spent', id='mt-spent', type='number')"></div>
             <div th:replace="fragments/common :: input (label='Estimated', id='mt-estimated', type='number')"></div>
-            <div th:replace="fragments/common :: input (label='From', id='mt-from', type='datetime-local')"></div>
-            <div th:replace="fragments/common :: input (label='To', id='mt-to', type='datetime-local')"></div>
+            <div th:replace="fragments/common :: input (label='From', id='mt-from', type='time')"></div>
+            <div th:replace="fragments/common :: input (label='To', id='mt-to', type='time')"></div>
         </div>
         <button id="mt-submit" class="btn-blue-dark" type="submit">CREATE</button>
     </form>
