@@ -6,11 +6,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
-    <!-- Add the mapper reference here -->
     <mappers>
-        <mapper resource="mappers/NoteMapper.xml"/>
         <mapper resource="mappers/ThemeMapper.xml"/>
-        <mapper resource="mappers/ProjectMapper.xml"/>
-        <mapper resource="mappers/RoutineMapper.xml"/>
     </mappers>
 </configuration>
