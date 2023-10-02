@@ -9,7 +9,7 @@
     </select>
 
     <select id="selectById" parameterType="int" resultType="dev.odaat.Entity.Theme">
-        SELECT * FROM theme WHERE id=#{id}
+        SELECT theme.* FROM theme WHERE id=#{id}
     </select>
 
     <insert id="add" parameterType="dev.odaat.Entity.Theme" useGeneratedKeys='true' keyProperty='id'>

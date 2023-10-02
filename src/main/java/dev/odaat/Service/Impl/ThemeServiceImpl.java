@@ -1,6 +1,7 @@
 package dev.odaat.Service.Impl;
 
 import java.sql.SQLDataException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +27,36 @@ public class ThemeServiceImpl implements ThemeService {
     @Autowired RoutineMapper routineMapper;
     
     public List<Theme> getAll(){
-        // TODO: make this work for project and routine.
-        return themeMapper.selectAll();
+
+        // TODO: Optimize performance.
+
+        // Querying all themes.
+        List<Theme> allThemes = themeMapper.selectAll();
+
+        // Keeping all projects and mappers.
+        List<Theme> completeThemes = new ArrayList<>();
+
+        allThemes.stream().forEach(theme -> {
+            if(theme.getType() == ThemeType.PROJECT){
+                completeThemes.add(projectMapper.selectByThemeId(theme.getId()));
+            } else {
+                completeThemes.add(routineMapper.selectByThemeId(theme.getId()));
+            }
+        });
+
+        return completeThemes;
     }
 
     @Override
     public Optional<Theme> getById(int id) {
-        // TODO: make this work for project and routine.
-        return Optional.of(themeMapper.selectById(id));
+        // TODO: Optimize performance.
+        Theme theme = themeMapper.selectById(id);
+        if(theme.getType() == ThemeType.PROJECT){
+            theme = projectMapper.selectByThemeId(id);
+        } else {
+            theme = routineMapper.selectByThemeId(id);
+        }
+        return Optional.of(theme);
     }
 
     @Override
