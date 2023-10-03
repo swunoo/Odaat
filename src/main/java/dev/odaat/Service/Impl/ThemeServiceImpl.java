@@ -61,21 +61,31 @@ public class ThemeServiceImpl implements ThemeService {
         return completeThemes;
     }
 
-    //TODO:
     @Override
     public Optional<Theme> getById(int id) {
         // TODO: Optimize performance.
         Theme theme = themeMapper.selectById(id);
         if(theme.getType() == ThemeType.PROJECT){
-            theme = projectMapper.selectByThemeId(id);
-        } else {
-            theme = routineMapper.selectByThemeId(id);
-        }
-        return Optional.of(theme);
+                Project project = projectMapper.selectByThemeId(theme.getId());
+                return Optional.of(new Project(
+                    theme,
+                    project.getTimeEstimated(),
+                    project.getDeadline()
+                ));
+            } else {
+                Routine routine = routineMapper.selectByThemeId(theme.getId());
+                return Optional.of(new Routine(
+                    theme,
+                    routine.getRepeatedOn(),
+                    routine.isActive(),
+                    routine.getStartTime(),
+                    routine.getEndTime()
+                ));
+            }
     }
 
     @Override
-    public Optional<Theme> create(Theme theme) throws IllegalArgumentException  {
+    public Optional<Theme> insert(Theme theme) throws IllegalArgumentException  {
 
         if(theme.getType() == null) throw new IllegalArgumentException("Theme type is empty.");
 

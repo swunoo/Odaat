@@ -24,7 +24,7 @@ public class Project extends Theme {
 
     // To make a project from theme in themeservice.
     public Project (Theme theme, double timeEstimated, LocalDate deadline){
-        this(theme.name, theme.program, theme.timeSpent, theme.description, theme.imgName, theme.startedAt, theme.completedAt, timeEstimated, deadline);
+        this(theme.id, theme.name, theme.program, theme.timeSpent, theme.description, theme.imgName, theme.startedAt, theme.completedAt, timeEstimated, deadline);
     }
 
     // To map project table to Project.
@@ -33,7 +33,7 @@ public class Project extends Theme {
     }
 
     public Project () {
-        
+
     }
 
     public int getId() {

@@ -49,17 +49,29 @@ public class MockerService {
 
         // Inserting 3 projects, 2 routines.
         System.out.println("==========INSERTING==========");
-        Theme proj1 = themeService.create(fakeProject()).orElseThrow();
-        Theme proj2 = themeService.create(fakeProject()).orElseThrow();
-        Theme proj3 = themeService.create(fakeProject()).orElseThrow();
+        Theme proj1 = themeService.insert(fakeProject()).orElseThrow();
+        Theme proj2 = themeService.insert(fakeProject()).orElseThrow();
+        Theme proj3 = themeService.insert(fakeProject()).orElseThrow();
         System.out.println("proj 1, 2, 3:");
         System.out.println(Arrays.asList(proj1, proj2, proj3));
         System.out.println(Arrays.asList(proj1.getId(), proj2.getId(), proj3.getId()));
-        Theme rout1 = themeService.create(fakeRoutine()).orElseThrow();
-        Theme rout2 = themeService.create(fakeRoutine()).orElseThrow();
+        Theme rout1 = themeService.insert(fakeRoutine()).orElseThrow();
+        Theme rout2 = themeService.insert(fakeRoutine()).orElseThrow();
         System.out.println("rout 1, 2:");
         System.out.println(Arrays.asList(rout1, rout2));
         System.out.println(Arrays.asList(rout1.getId(), rout2.getId()));
+
+        // Selecting all projects.
+        System.out.println("==========SELECTING ALL==========");
+        System.out.println("Total - " + themeService.getAll().size());
+
+        // Selecting 1 project, 1 routine.
+        System.out.println("==========SELECTING BY ID==========");
+        // System.out.println(themeService.getById(proj1.getId()).orElseThrow().toString());
+        // System.out.println(themeService.getById(rout1.getId()).orElseThrow().toString());
+         
+        System.out.println("proj1: " + proj1.getId() + " equals " + themeService.getById(proj1.getId()).orElseThrow().getId());
+        System.out.println("rout1: " + rout1.getId() + " equals " + themeService.getById(rout1.getId()).orElseThrow().getId());
 
         // Updating 2 project, 1 routine.
         System.out.println("==========UPDATING==========");
@@ -76,6 +88,9 @@ public class MockerService {
         themeService.delete(proj1.getId());
         themeService.delete(rout2.getId());
         System.out.println("All projects and routines:AFTER - " + themeService.getAll().size());
+
+        System.out.println("==========TESTING ENDS==========");
+
 
     }
 

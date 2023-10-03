@@ -37,6 +37,13 @@ public class Theme {
 
     }
 
+    @Override
+    public String toString() {
+        return "Theme [id=" + id + ", name=" + name + ", program=" + program + ", timeSpent=" + timeSpent + ", type="
+                + type + ", description=" + description + ", imgName=" + imgName + ", startedAt=" + startedAt
+                + ", completedAt=" + completedAt + "]";
+    }
+
     public int getId() {
         return id;
     }

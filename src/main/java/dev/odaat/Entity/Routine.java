@@ -36,7 +36,7 @@ public class Routine extends Theme {
 
     // To make a routine from theme in themeservice.
     public Routine(Theme theme, List<DayType> repeatedOn, boolean isActive, LocalTime startTime, LocalTime endTime){
-        this(theme.name, theme.program, theme.timeSpent, theme.description, theme.imgName, theme.startedAt, theme.completedAt, repeatedOn, startTime, endTime, isActive);
+        this(theme.id, theme.name, theme.program, theme.timeSpent, theme.description, theme.imgName, theme.startedAt, theme.completedAt, repeatedOn, startTime, endTime, isActive);
     }
 
     // To map routine table to Routine.
@@ -52,7 +52,7 @@ public class Routine extends Theme {
     }
 
     public Routine () {
-        
+
     }
 
     public int getId() {
