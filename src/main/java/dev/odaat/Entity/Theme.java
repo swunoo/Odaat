@@ -32,6 +32,11 @@ public class Theme {
         this.timeSpent = timeSpent;
     }
 
+    // To facilitate mapping of Project and Routine.
+    public Theme(){
+
+    }
+
     public int getId() {
         return id;
     }

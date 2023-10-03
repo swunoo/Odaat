@@ -6,10 +6,8 @@
 <mapper namespace="dev.odaat.Mapper.ProjectMapper">
 
     <select id="selectByThemeId" parameterType="int" resultType="dev.odaat.Entity.Project">
-        <!-- TODO: cast variables -->
-        SELECT * FROM theme
-        JOIN project ON theme.id = project.theme_id
-        WHERE theme.id=#{id}
+        SELECT * FROM project
+        WHERE theme_id=#{id}
     </select>
 
     <insert id="insert" parameterType="dev.odaat.Entity.Theme">

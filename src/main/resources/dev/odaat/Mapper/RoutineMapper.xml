@@ -7,10 +7,8 @@
 <mapper namespace="dev.odaat.Mapper.RoutineMapper">
 
     <select id="selectByThemeId" parameterType="int" resultType="dev.odaat.Entity.Routine">
-        <!-- TODO: cast variables -->
-        SELECT * FROM theme
-        JOIN routine ON theme.id = routine.theme_id
-        WHERE theme.id=#{id}
+        SELECT * FROM routine
+        WHERE theme_id=#{id}
     </select>
 
     <insert id="insert" parameterType="dev.odaat.Entity.Theme">

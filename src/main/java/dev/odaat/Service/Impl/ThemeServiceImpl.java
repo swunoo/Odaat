@@ -33,20 +33,35 @@ public class ThemeServiceImpl implements ThemeService {
         // Querying all themes.
         List<Theme> allThemes = themeMapper.selectAll();
 
-        // Keeping all projects and mappers.
+        // To keep all projects and routines.
         List<Theme> completeThemes = new ArrayList<>();
-
+        
         allThemes.stream().forEach(theme -> {
             if(theme.getType() == ThemeType.PROJECT){
-                completeThemes.add(projectMapper.selectByThemeId(theme.getId()));
+                Project project = projectMapper.selectByThemeId(theme.getId());
+                project = new Project(
+                    theme,
+                    project.getTimeEstimated(),
+                    project.getDeadline()
+                );
+                completeThemes.add(project);
             } else {
-                completeThemes.add(routineMapper.selectByThemeId(theme.getId()));
+                Routine routine = routineMapper.selectByThemeId(theme.getId());
+                routine = new Routine(
+                    theme,
+                    routine.getRepeatedOn(),
+                    routine.isActive(),
+                    routine.getStartTime(),
+                    routine.getEndTime()
+                );
+                completeThemes.add(routine);
             }
         });
 
         return completeThemes;
     }
 
+    //TODO:
     @Override
     public Optional<Theme> getById(int id) {
         // TODO: Optimize performance.
