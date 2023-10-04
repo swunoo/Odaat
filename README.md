@@ -33,3 +33,4 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Connecting with js
 
 * Security
+* Word limits
