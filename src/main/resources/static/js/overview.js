@@ -46,6 +46,12 @@ FORM.addEventListener('submit', e => {
 
 // Builds the UI of the theme data using Thymeleaf fragment and theme argument.
 function buildThemeCard(theme){
+
+    // Adds dirpath to imagename if not already included.
+    if(theme.imgName !== null && !theme.imgName.includes(IMG_DIR)){
+        theme.imgName = IMG_DIR + theme.imgName;
+    }
+
     // Breaks down the structure of a theme-card-ui
     const cardNode = document.getElementsByClassName(THEME_CLASS)[0];
     const themeCardUI = document.createElement('div');
@@ -57,17 +63,50 @@ function buildThemeCard(theme){
         console.log(tag);
         const key = tag.getAttribute(DATA_ATTRIBUTE)
         log(key);
+
+        if(key === 'calc-progress' && theme.type === "PROJECT"){
+            tag.value = (theme.timeSpent/theme.timeEstimated) * 100;
+        } else if(key === 'calc-completedAt'){
+            console.log(theme.type);
+            console.log(theme.deadline);
+            tag.textContent = theme.completedAt !== null ? theme.completedAt : (
+                theme.type === 'ROUTINE' ? 'Present' : theme.deadline
+            ) 
+        } else if(key === 'id-card') {
+            tag.id = theme.id;
+        } else if(key !== null) {
+            const [attr, val] = key.split('-'); // "textContent-[key]" -> "textContent", "[key]"
+            if(theme[val] !== null) tag[attr] = theme[val];
+        }
+
         if(tag.children.length > 0){
             [...tag.children].forEach(traverseTags);
         }
     }
+
     [...themeCardUI.children].forEach(traverseTags);
 
-    //CONTINUE BUILDING THE UI
-    //MAKE IT WORK FOR PROJECT/ROUTINE.
+    if(theme.type === 'PROJECT'){
+        themeCardUI.getElementsByClassName('theme-header')[0].classList.add('bg-white');
+        const classOfProgress = themeCardUI.querySelector('progress').classList;
+        const classOfRoutinePlan = themeCardUI.querySelector('.routine-plan').classList;
+        if(classOfProgress.contains('hidden')) classOfProgress.remove('hidden');
+        if(!classOfRoutinePlan.contains('hidden')) classOfRoutinePlan.add('hidden');
+    } else {
+        themeCardUI.getElementsByClassName('theme-header')[0].classList.add('bg-gray-dark');
+        const classOfProgress = themeCardUI.querySelector('progress').classList;
+        const classOfRoutinePlan = themeCardUI.querySelector('.routine-plan').classList;
+        if(!classOfProgress.contains('hidden')) classOfProgress.add('hidden');
+        if(classOfRoutinePlan.contains('hidden')) classOfRoutinePlan.remove('hidden');
+    }
 
+    const loadingCurtain = document.createElement('div');
+    loadingCurtain.classList.add('loading-curtain');
+    loadingCurtain.innerHTML = "<h3>Adding</h3>"
+    themeCardUI.append(loadingCurtain);
 
     // Returns the ui
+    return themeCardUI;
 }
 
 function log(msg){
@@ -76,10 +115,28 @@ function log(msg){
 }
 
 // MOCK
-const mockTheme = createProject(
+const mockProject = createProject(
     createNewTheme("Mock", "JOB", "Lorem Ipsum Dolor Sit Amet"),
     10, "2023-11-19"
 );
+const mockRoutine = createRoutine(
+    createNewTheme("Routine", "CHORES", "Routine description"),
+    ["SUN", "MON"], true, "10:30", "17:30" 
+)
 
+// Testing theme card
 console.log("Mock");
-buildThemeCard(mockTheme);
+const proj = buildThemeCard(mockProject);
+const rout = buildThemeCard(mockRoutine);
+THEME_WRAPPER.appendChild(proj);
+THEME_WRAPPER.appendChild(rout);
+
+setTimeout(() => {
+    console.log('adding');
+    proj.querySelector('.loading-curtain').classList.add('hidden-forced');
+}, 2000);
+
+setTimeout(() => {
+    console.log('adding');
+    rout.querySelector('.loading-curtain').classList.add('hidden-forced');
+}, 1000);

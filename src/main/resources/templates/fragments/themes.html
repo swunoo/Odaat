@@ -45,18 +45,17 @@
     <div class="theme-container" th:fragment="theme-single(
         theme, routineDescriptor, userImgDir
     )" th:id="${theme.id}" data-theme-key="id-card">
-        <div class="loadingCurtain hidden">THIS IS HIDDEN</div>
         <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
             <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}"
                 alt="Menu"/>
         </label>
-        <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}" data-theme-key="calc-header">
-            <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"  data-theme-key="val-imgName"/>
+        <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
+            <img th:src="${userImgDir + theme.imgName}" data-theme-key="src-imgName"/>
             <div class="theme-title-container">
-                <h3 th:text="${theme.name}"  data-theme-key="val-name"></h3>
+                <h3 th:text="${theme.name}"  data-theme-key="textContent-name"></h3>
                 <!-- Show {completedAt} if completed. Otherwise, show 'Present' if routine, {deadline} if project. -->
                 <p class="font-small font-thin">
-                    <span th:text="${theme.startedAt}" data-theme-key="val-startedAt"></span>
+                    <span th:text="${theme.startedAt}" data-theme-key="textContent-startedAt"></span>
                     ~
                     <span th:text="${
                             theme.completedAt != null 
@@ -64,16 +63,21 @@
                             : (theme.type == routineDescriptor
                                 ? 'Present'
                                 : theme.deadline)
-                        }" data-theme-key="val-completedAt"></span>
+                        }" data-theme-key="calc-completedAt"></span>
                 </p>
                 <!-- Show progress if project, repeated days and time otherwise (it'd be a routine). -->
-                <progress th:if="${theme.type == projectDescriptor}"
-                    th:value="${(theme.timeSpent/theme.timeEstimated)*100}" max="100"
+                <progress th:classappend="${theme.type != projectDescriptor ? 'hidden' : ''}"
+                     th:value="${
+                        theme.type == projectDescriptor
+                        ? (theme.timeSpent/theme.timeEstimated)*100 
+                        : 0
+                    }" max="100"
                     data-theme-key="calc-progress">
                 </progress>
-                <p class="font-small font-thin" th:unless="${theme.type == projectDescriptor}">
-                    <span th:text="${theme.repeatedOn}" data-theme-key="val-repeatedOn"></span>
-                    <span th:text="${theme.startTime}" data-theme-key="val-startTime"></span> ~ <span th:text="${theme.endTime}" data-theme-key="val-endTime"></span>
+                <p th:classappend="${theme.type != routineDescriptor ? 'hidden' : ''}" class="font-small font-thin routine-plan">
+                    <span th:text="${theme.type == routineDescriptor ? theme.repeatedOn : ''}" data-theme-key="textContent-repeatedOn"></span>
+                    <span th:text="${theme.type == routineDescriptor ? theme.startTime + ' ~ ' : ''}" data-theme-key="textContent-startTime"></span>
+                    <span th:text="${theme.type == routineDescriptor ? theme.endTime : ''}" data-theme-key="textContent-endTime"></span>
                 </p>
             </div>
         </div>

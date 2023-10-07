@@ -127,7 +127,7 @@ nav img {
 .bg-gray-light { background-color: var(--brand-gray-light); }
 .bg-gray-dark { background-color: var(--brand-gray-dark); color: white; }
 .bg-black { background-color: black; color: white; }
-.bg-white { background-color: white; }
+.bg-white { background-color: white; color: black;}
 .bg-blue-forced { background-color: var(--brand-blue-dark) !important;}
 
 .hidden{ display: none; }

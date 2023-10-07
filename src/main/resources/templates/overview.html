@@ -41,6 +41,10 @@
         programs = ${programs},
         userImgDir = ${userImgDir}
     )"></div>
+    <script th:inline="javascript">
+        // Server variables
+        const IMG_DIR = /*[[${userImgDir}]]*/ "";
+    </script>
     <script>
         // Mapping DOM elements for JS:
         const idMapper = id => document.getElementById(id);
