@@ -5,7 +5,7 @@
     <title>Odaat | Modals</title>
 </head>
 <body>
-    <form class="modal-container" th:fragment="theme-modal (programs, days)">
+    <form id="mt-form" class="modal-container" th:fragment="theme-modal (programs, days)">
         <img id="mt-close" src="/images/ui/close.png" alt="Close"/>
         <header>
             <img id="mt-img" src="/images/ui/placeholder.png" alt="Click to Edit"/>
@@ -16,7 +16,7 @@
                 label='Type', options=${ {'PROJECT', 'ROUTINE'} }, id='mt-type')"></div>
             <div th:replace="fragments/common :: drop-down (
                 label='Program', options=${programs}, id='mt-program')"></div>
-            <label id="mt-details">
+            <label id="mt-description">
                 <p>Details</p>
                 <textarea rows="5"></textarea>
             </label>

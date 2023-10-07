@@ -20,7 +20,7 @@
 }
 
 .theme-container > div,.theme-container > label {
-    padding: var(--theme-padding) var(--theme-padding) 0 var(--theme-padding);
+    padding: var(--theme-padding);
 }
 
 .menu-container {

@@ -1,12 +1,17 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odaat | Themes</title>
     <link rel="stylesheet" href="css/common.css">
 </head>
+
 <body>
-    <main class="theme-group-container" th:fragment="theme-group (title, themes, controls, addBtnId, programs, userImgDir)">
+    <main class="theme-group-container"
+        th:fragment="theme-group (title, themes, controls, addBtnId, wrapperId, programs, userImgDir)">
+
+        <!-- Header bar above all themes -->
         <header class="title-container">
             <p class="font-title font-big font-bold" th:text="${title}"></p>
             <div class="flex gap-3">
@@ -19,48 +24,64 @@
                     label='View:', options=${programs}
                 )"></div>
                 <!-- If "newBtn" is included in ${controls} -->
-                <button class="btn-orange" th:id="${addBtnId}" th:if="${#lists.contains(controls, 'newBtn')}" type="button">Add New</button>
+                <button class="btn-orange" th:id="${addBtnId}" th:if="${#lists.contains(controls, 'newBtn')}"
+                    type="button">Add New</button>
             </div>
         </header>
 
-        <div class="theme-wrapper">
+        <!-- Wrapper that houses all themes -->
+        <div th:id="${wrapperId}" class="theme-wrapper">
             <p class="font-center" th:if="${#lists.isEmpty(themes)}">No Data Yet.</p>
-            <div class="theme-container" th:unless="${#lists.isEmpty(themes)}" th:each="theme : ${themes}">
-                <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
-                    <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}" alt="Menu"/>
-                </label>
-                <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
-                    <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"/>
-                    <div class="theme-title-container">
-                        <h3 th:text="${theme.name}"></h3>
-                        <!-- Show {completedAt} if completed. Otherwise, show 'Present' if routine, {deadline} if project. -->
-                        <p class="font-small font-thin">
-                            <span th:text="${theme.startedAt}"></span>
-                            ~
-                            <span th:text="${
-                                completedAt != null 
-                                ? completedAt 
-                                : (theme.type == routineDescriptor
-                                    ? 'Present'
-                                    : theme.deadline)
-                            }"></span>
-                        </p>
-                        <!-- Show progress if project, repeated days and time otherwise (it'd be a routine). -->
-                        <progress   th:if="${theme.type == projectDescriptor}"
-                                    th:value="${(theme.timeSpent/theme.timeEstimated)*100}" max="100">
-                        </progress>
-                        <p class="font-small font-thin" th:unless="${theme.type == projectDescriptor}">
-                            <span th:text="${theme.repeatedOn}"></span>
-                            <span th:text="${theme.startTime}"></span> ~ <span th:text="${theme.endTime}"></span>
-                        </p>
-                    </div>
-                </div>
-                <div class="theme-description-container">
-                    <div th:text="${theme.description}"></div>
-                    <p class="font-small font-thin font-right">[<span th:text="${theme.timeSpent}"></span>h]</p>
-                </div>
+            <div th:unless="${#lists.isEmpty(themes)}" th:each="theme : ${themes}" th:insert="fragments/themes :: theme-single (
+                theme=${theme},
+                routineDescriptor=${routineDescriptor},
+                userImgDir=${userImgDir}
+            )">
             </div>
         </div>
     </main>
+
+    <!-- Fragment for a single theme -->
+    <div class="theme-container" th:fragment="theme-single(
+        theme, routineDescriptor, userImgDir
+    )" th:id="${theme.id}" data-theme-key="id-card">
+        <div class="loadingCurtain hidden">THIS IS HIDDEN</div>
+        <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
+            <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}"
+                alt="Menu"/>
+        </label>
+        <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}" data-theme-key="calc-header">
+            <img th:src="${userImgDir + theme.imgName}" th:alt="${theme.name}"  data-theme-key="val-imgName"/>
+            <div class="theme-title-container">
+                <h3 th:text="${theme.name}"  data-theme-key="val-name"></h3>
+                <!-- Show {completedAt} if completed. Otherwise, show 'Present' if routine, {deadline} if project. -->
+                <p class="font-small font-thin">
+                    <span th:text="${theme.startedAt}" data-theme-key="val-startedAt"></span>
+                    ~
+                    <span th:text="${
+                            theme.completedAt != null 
+                            ? theme.completedAt 
+                            : (theme.type == routineDescriptor
+                                ? 'Present'
+                                : theme.deadline)
+                        }" data-theme-key="val-completedAt"></span>
+                </p>
+                <!-- Show progress if project, repeated days and time otherwise (it'd be a routine). -->
+                <progress th:if="${theme.type == projectDescriptor}"
+                    th:value="${(theme.timeSpent/theme.timeEstimated)*100}" max="100"
+                    data-theme-key="calc-progress">
+                </progress>
+                <p class="font-small font-thin" th:unless="${theme.type == projectDescriptor}">
+                    <span th:text="${theme.repeatedOn}" data-theme-key="val-repeatedOn"></span>
+                    <span th:text="${theme.startTime}" data-theme-key="val-startTime"></span> ~ <span th:text="${theme.endTime}" data-theme-key="val-endTime"></span>
+                </p>
+            </div>
+        </div>
+        <div class="theme-description-container">
+            <div th:text="${theme.description}" data-theme-key="val-description"></div>
+            <p class="font-small font-thin font-right">[<span th:text="${theme.timeSpent}"  data-theme-key="val-timeSpent"></span>h]</p>
+        </div>
+    </div>
 </body>
+
 </html>

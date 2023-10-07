@@ -16,6 +16,7 @@
         programs = ${programs},
         days = ${days}
     )"></div>
+    <!-- TODO: make this DRY -->
     <!-- Ongoing Themes -->
     <div th:replace="fragments/themes :: theme-group (
         title = 'Ongoing',
@@ -24,6 +25,7 @@
         routineDescription = ${routineDescription},
         controls = ${ {'byProgram', 'newBtn'} },
         addBtnId = 'addThemeBtn',
+        wrapperId = 'theme-wrapper',
         programs = ${programs},
         userImgDir = ${userImgDir}
     )"></div>
@@ -35,6 +37,7 @@
         routineDescriptor = ${routineDescriptor},
         controls = ${ {'sortOption'} },
         addBtnId = '',
+        wrapperId = '',
         programs = ${programs},
         userImgDir = ${userImgDir}
     )"></div>
@@ -47,10 +50,23 @@
 
         // Modal form elements
         const [
-            CLOSE, IMG, NAME, PROMPT, TYPE, PROGRAM, DETAILS, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
-        ] = ['mt-close', 'mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-details', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
+            FORM, CLOSE, IMG, NAME, PROMPT, TYPE, PROGRAM, DESCRIPTION, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
+        ] = ['mt-form', 'mt-close', 'mt-img', 'mt-name', 'mt-prompt', 'mt-type', 'mt-program', 'mt-description', 'mt-start', 'mt-deadline', 'mt-days', 'mt-status', 'mt-end', 'mt-spent', 'mt-estimated', 'mt-from', 'mt-to', 'mt-submit'].map(idMapper);
+
+        // Theme page elements
+        const [
+            THEME_WRAPPER
+        ] = ['theme-wrapper'].map(idMapper);
+
+        // Class of theme-cards
+        const THEME_CLASS = 'theme-container';
+        // Custom attribute to build UI from JS
+        const DATA_ATTRIBUTE = 'data-theme-key';
+
     </script>
 
+    <script src="js/model.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/overview.js"></script>
 </body>
 </html>
