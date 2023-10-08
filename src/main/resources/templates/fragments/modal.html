@@ -7,9 +7,9 @@
 <body>
     <form id="mt-form" class="modal-container" th:fragment="theme-modal (programs, days)">
         <img id="mt-close" src="/images/ui/close.png" alt="Close"/>
-        <header>
+        <header id="mt-name" >
             <img id="mt-img" src="/images/ui/placeholder.png" alt="Click to Edit"/>
-            <input id="mt-name" class="font-title font-big font-bold" placeholder="THEME NAME (click to edit)"/>
+            <input class="font-title font-big font-bold" placeholder="THEME NAME (click to edit)"/>
         </header>
         <div>
             <div th:replace="fragments/common :: drop-down (

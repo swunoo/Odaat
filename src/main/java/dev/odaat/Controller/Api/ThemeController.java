@@ -50,13 +50,18 @@ public class ThemeController {
     public ResponseEntity<String> create(
         @Validated @RequestBody Theme theme, BindingResult bindingResult){
 
+        System.out.println("Received:");
+        System.out.println(theme);
+
         if(bindingResult.hasErrors()){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Request body must be a Theme object.");
         }
 
-        Optional<Theme> insertedTheme = themeService.insert(theme);
+        // Optional<Theme> insertedTheme = themeService.insert(theme);
+        Optional<Theme> insertedTheme = Optional.of(theme);
+        
         if(insertedTheme.isPresent()){
             return ResponseEntity
                     .status(HttpStatus.CREATED)

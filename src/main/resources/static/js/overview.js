@@ -18,18 +18,22 @@ STATUS.addEventListener('change', e => {
 CLOSE.addEventListener('click', e => closeModal(MODAL));
 
 // Submitting the form
-FORM.addEventListener('submit', e => {
+FORM.addEventListener('submit', async (e) => {
     // Stops page reloading.
     e.preventDefault();
 
     // Collects user input.
     // TODO: validation
     const parentTheme = createNewTheme(
-        NAME.value, PROGRAM.value, DESCRIPTION.value
+        getValue(NAME), getValue(PROGRAM), getValue(DESCRIPTION)
     );
-    const theme = (TYPE.value==='PROJECT') 
-                    ? createProject(parentTheme, ESTIMATED.value, DEADLINE.value)
-                    : createRoutine(parentTheme, DAYS.value, true, FROM.value, TO.value);
+
+    log(parentTheme);
+    log("name, program, description, estimated, deadline, days, from, to")
+
+    const theme = (getValue(TYPE)==='PROJECT') 
+                    ? createProject(parentTheme, getValue(ESTIMATED), getValue(DEADLINE))
+                    : createRoutine(parentTheme, getValue(DAYS), true, getValue(FROM), getValue(TO));
 
     // Closes modal and Shows NEW_THEME as LOADING.
     closeModal(MODAL);
@@ -37,9 +41,23 @@ FORM.addEventListener('submit', e => {
         buildThemeCard(theme), THEME_WRAPPER.firstChild
     )
 
-    // Builds the request object.
-
     // Sends data and Waits for res.
+    log('imgDir:')
+    log(IMG_DIR)
+    log('apiRoute:')
+    log(API_ROUTE)
+    log("theme to be sent:")
+    log(theme);
+
+    await fetch(API_ROUTE, {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'include',
+        body: JSON.stringify(theme)
+    }).then(res => res.json())
+        .then(res => log(res))
+        .catch(err => log(err));
+
 
     // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
 });
@@ -60,15 +78,11 @@ function buildThemeCard(theme){
 
     // Create a new theme-card using theme argument
     const traverseTags = tag => {
-        console.log(tag);
         const key = tag.getAttribute(DATA_ATTRIBUTE)
-        log(key);
 
         if(key === 'calc-progress' && theme.type === "PROJECT"){
             tag.value = (theme.timeSpent/theme.timeEstimated) * 100;
         } else if(key === 'calc-completedAt'){
-            console.log(theme.type);
-            console.log(theme.deadline);
             tag.textContent = theme.completedAt !== null ? theme.completedAt : (
                 theme.type === 'ROUTINE' ? 'Present' : theme.deadline
             ) 
@@ -111,7 +125,6 @@ function buildThemeCard(theme){
 
 function log(msg){
     console.log(msg);
-    // console.log(JSON.stringify(msg));
 }
 
 // MOCK
@@ -125,18 +138,18 @@ const mockRoutine = createRoutine(
 )
 
 // Testing theme card
-console.log("Mock");
-const proj = buildThemeCard(mockProject);
-const rout = buildThemeCard(mockRoutine);
-THEME_WRAPPER.appendChild(proj);
-THEME_WRAPPER.appendChild(rout);
+// log("Mock");
+// const proj = buildThemeCard(mockProject);
+// const rout = buildThemeCard(mockRoutine);
+// THEME_WRAPPER.appendChild(proj);
+// THEME_WRAPPER.appendChild(rout);
 
-setTimeout(() => {
-    console.log('adding');
-    proj.querySelector('.loading-curtain').classList.add('hidden-forced');
-}, 2000);
+// setTimeout(() => {
+//     log('adding');
+//     proj.querySelector('.loading-curtain').classList.add('hidden-forced');
+// }, 2000);
 
-setTimeout(() => {
-    console.log('adding');
-    rout.querySelector('.loading-curtain').classList.add('hidden-forced');
-}, 1000);
+// setTimeout(() => {
+//     log('adding');
+//     rout.querySelector('.loading-curtain').classList.add('hidden-forced');
+// }, 1000);

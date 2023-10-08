@@ -16,6 +16,7 @@ import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.ThemeType;
 import dev.odaat.Service.MockerService;
 import dev.odaat.Service.ThemeService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/overview")
@@ -28,7 +29,7 @@ public class OverviewController {
     @Autowired MockerService mockerService;
 
     @GetMapping
-    public String overview(Model model){
+    public String overview(HttpServletRequest request, Model model){
 
         // mockerService.testThemes();
 
@@ -37,6 +38,8 @@ public class OverviewController {
         List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());
         List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
 
+        String apiRoute = request.getRequestURL().toString() + "/api/v1/theme";
+
         model.addAttribute("currentThemes", currentThemes);
         model.addAttribute("previousThemes", previousThemes);
         model.addAttribute("projectDescriptor", ThemeType.PROJECT);
@@ -44,6 +47,7 @@ public class OverviewController {
         model.addAttribute("programs", ProgramType.values());
         model.addAttribute("days", DayType.values());
         model.addAttribute("userImgDir", userImgDir);
+        model.addAttribute("apiRoute", apiRoute);
         
         return "overview";
     }

@@ -30,7 +30,7 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 
 * Datepicker/timepicker/multiselect
 * CRUD apis
-* Connecting with js
+* Connecting with js -> SECURITY CONFIG NEEDED
 
 * Security
 * Word limits
