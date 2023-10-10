@@ -39,6 +39,14 @@ public class Routine extends Theme {
         this(theme.id, theme.name, theme.program, theme.timeSpent, theme.description, theme.imgName, theme.startedAt, theme.completedAt, repeatedOn, startTime, endTime, isActive);
     }
 
+    @Override
+    public String toString() {
+        return "Theme [id=" + id + ", name=" + name + ", program=" + program + ", timeSpent=" + timeSpent + ", type="
+        + type + ", description=" + description + ", imgName=" + imgName + ", startedAt=" + startedAt
+        + ", completedAt=" + completedAt + "Routine [repeatedOn=" + repeatedOn + ", isActive=" + isActive + ", startTime=" + startTime
+                + ", endTime=" + endTime + "]";
+    }
+
     // To map routine table to Routine.
     public Routine(
         java.lang.Integer id,

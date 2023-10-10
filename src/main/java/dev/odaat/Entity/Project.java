@@ -44,6 +44,13 @@ public class Project extends Theme {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return "Theme [id=" + id + ", name=" + name + ", program=" + program + ", timeSpent=" + timeSpent + ", type="
+        + type + ", description=" + description + ", imgName=" + imgName + ", startedAt=" + startedAt
+        + ", completedAt=" + completedAt + "Project [timeEstimated=" + timeEstimated + ", deadline=" + deadline + "]";
+    }
+
     public String getDescription() {
         return description;
     }

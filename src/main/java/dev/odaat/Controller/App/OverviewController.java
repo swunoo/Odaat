@@ -38,7 +38,10 @@ public class OverviewController {
         List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());
         List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
 
-        String apiRoute = request.getRequestURL().toString() + "/api/v1/theme";
+        // To remove the /overview part.
+        String fullUrl = request.getRequestURL().toString();
+        int lastSlash = fullUrl.lastIndexOf("/");
+        String apiRoute = fullUrl.substring(0, lastSlash) + "/api/v1/theme";
 
         model.addAttribute("currentThemes", currentThemes);
         model.addAttribute("previousThemes", previousThemes);

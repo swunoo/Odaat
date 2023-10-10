@@ -1,3 +1,24 @@
+console.log(CSRF_TOKEN);
+
+// fetch(API_ROUTE + "/all", {
+//     method: 'GET',
+//     mode: 'no-cors',
+//     credentials: 'include'}).then(res => res.json())
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+
+// fetch(API_ROUTE, {
+//     method: 'POST',
+//     headers: {
+//         "Content-Type": "application/json",
+//         "X-CSRF-TOKEN": CSRF_TOKEN
+//     },
+//     credentials: 'include',
+//     body: JSON.stringify("theme")
+// }).then(res => res.text())
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+
 // Clicking the Add button.
 ADD_BTN.addEventListener('click', e => openModal(MODAL));
 
@@ -28,8 +49,8 @@ FORM.addEventListener('submit', async (e) => {
         getValue(NAME), getValue(PROGRAM), getValue(DESCRIPTION)
     );
 
-    log(parentTheme);
-    log("name, program, description, estimated, deadline, days, from, to")
+    console.log(parentTheme);
+    console.log("name, program, description, estimated, deadline, days, from, to")
 
     const theme = (getValue(TYPE)==='PROJECT') 
                     ? createProject(parentTheme, getValue(ESTIMATED), getValue(DEADLINE))
@@ -37,33 +58,43 @@ FORM.addEventListener('submit', async (e) => {
 
     // Closes modal and Shows NEW_THEME as LOADING.
     closeModal(MODAL);
+    const themeCardUI = buildThemeCard(theme);
     THEME_WRAPPER.insertBefore(
-        buildThemeCard(theme), THEME_WRAPPER.firstChild
+        themeCardUI, THEME_WRAPPER.firstChild
     )
 
     // Sends data and Waits for res.
-    log('imgDir:')
-    log(IMG_DIR)
-    log('apiRoute:')
-    log(API_ROUTE)
-    log("theme to be sent:")
-    log(theme);
+    console.log("theme to be sent:")
+    console.log(theme);
 
-    await fetch(API_ROUTE, {
+    const response = await fetch(API_ROUTE, {
         method: 'POST',
-        mode: 'no-cors',
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": CSRF_TOKEN
+        },
         credentials: 'include',
         body: JSON.stringify(theme)
-    }).then(res => res.json())
-        .then(res => log(res))
-        .catch(err => log(err));
-
+    })
+        .then(res => {
+            if(res.status === 201) return res.text();
+            else throw new Error(res.text());
+        })
+        .catch(err => {
+            themeCardUI.querySelector('.loading-curtain > h3').textContent = "Failed. Please reload."
+            throw new Error(err)
+        });
 
     // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
+    console.log(response);
+    theme.id = response.split(":")[1].trim();
+    themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
 });
 
 // Builds the UI of the theme data using Thymeleaf fragment and theme argument.
-function buildThemeCard(theme){
+function buildThemeCard(originalTheme){
+
+    const theme = JSON.parse(JSON.stringify(originalTheme));
 
     // Adds dirpath to imagename if not already included.
     if(theme.imgName !== null && !theme.imgName.includes(IMG_DIR)){
@@ -123,10 +154,6 @@ function buildThemeCard(theme){
     return themeCardUI;
 }
 
-function log(msg){
-    console.log(msg);
-}
-
 // MOCK
 const mockProject = createProject(
     createNewTheme("Mock", "JOB", "Lorem Ipsum Dolor Sit Amet"),
@@ -138,18 +165,18 @@ const mockRoutine = createRoutine(
 )
 
 // Testing theme card
-// log("Mock");
+// console.log("Mock");
 // const proj = buildThemeCard(mockProject);
 // const rout = buildThemeCard(mockRoutine);
 // THEME_WRAPPER.appendChild(proj);
 // THEME_WRAPPER.appendChild(rout);
 
 // setTimeout(() => {
-//     log('adding');
+//     console.log('adding');
 //     proj.querySelector('.loading-curtain').classList.add('hidden-forced');
 // }, 2000);
 
 // setTimeout(() => {
-//     log('adding');
+//     console.log('adding');
 //     rout.querySelector('.loading-curtain').classList.add('hidden-forced');
 // }, 1000);

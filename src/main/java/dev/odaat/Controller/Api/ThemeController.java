@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.odaat.Entity.Project;
+import dev.odaat.Entity.Routine;
 import dev.odaat.Entity.Theme;
+import dev.odaat.Entity.Enums.ThemeType;
 import dev.odaat.Service.ThemeService;
 
 @RestController
@@ -48,19 +51,23 @@ public class ThemeController {
     // Insert
     @PostMapping
     public ResponseEntity<String> create(
-        @Validated @RequestBody Theme theme, BindingResult bindingResult){
-
+        @Validated @RequestBody Project theme, BindingResult bindingResult){
+            
+        // TODO: MAKE THIS WORK FOR ROUTINE. (CASTING PROJ/ROUT FROM THEME DOESN'T SEEM TO WORK.)
+        
+        System.out.println("==========");
         System.out.println("Received:");
         System.out.println(theme);
+        System.out.println("==========");
 
         if(bindingResult.hasErrors()){
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Request body must be a Theme object.");
+                    .body("Request body must be a Project object.");
         }
 
-        // Optional<Theme> insertedTheme = themeService.insert(theme);
-        Optional<Theme> insertedTheme = Optional.of(theme);
+        Optional<Theme> insertedTheme = themeService.insert(theme);
+
         
         if(insertedTheme.isPresent()){
             return ResponseEntity

@@ -1,68 +1,45 @@
-// package dev.odaat.Config;
+package dev.odaat.Config;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.core.userdetails.User;
-// import org.springframework.security.core.userdetails.UserDetails;
-// import org.springframework.security.core.userdetails.UserDetailsService;
-// import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-// import org.springframework.security.crypto.password.PasswordEncoder;
-// import org.springframework.security.web.DefaultSecurityFilterChain;
-// import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-// import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
- 
-// @Configuration
-// @EnableWebSecurity
-// public class SecurityConfig {
+import java.util.Arrays;
 
-//     // @Bean
-//     // public UserDetailsService userDetailsService() {
-//     //     PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-//     //     // Define a sample user with username "user" and password "password"
-//     //     UserDetails user = User.builder()
-//     //             .username("user")
-//     //             .password(encoder.encode("password"))
-//     //             .roles("USER")
-//     //             .build();
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
 
-//     //     return new InMemoryUserDetailsManager(user);
-//     // }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(Customizer.withDefaults())
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/login/**").permitAll()
+                .requestMatchers(HttpMethod.POST).permitAll()
+                .anyRequest().permitAll() // TODO: change this to authenticated.
+            )
+            .formLogin(form -> form.loginPage("/login").permitAll());
+        return http.build();
+    }
 
-//     @Bean
-//     public PasswordEncoder passwordEncoder() {
-//         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//     }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
-//     @Bean
-//     public AuthenticationSuccessHandler successHandler() {
-//         return new SimpleUrlAuthenticationSuccessHandler("/overview"); // Redirect to an authenticated route
-//     }
-
-//     @Configuration
-//     public static class WebSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
-//         @Autowired
-//         private AuthenticationSuccessHandler successHandler;
-
-//         @Override
-//         public void configure(HttpSecurity http) throws Exception {
-//             http
-//                 .csrf().disable() // Disable CSRF for simplicity. You may want to enable it in a production application.
-//                 .authorizeRequests()
-//                     .requestMatchers("/login").permitAll() // Allow public access to "/index"
-//                     .anyRequest().authenticated() // Require authentication for all other routes
-//                     .and()
-//                 .httpBasic() // Use basic authentication
-//                     .and()
-//                 .formLogin()
-//                     .successHandler(successHandler) // Set the custom success handler
-//                     .loginPage("/login") // Specify the custom login page URL
-//                     .permitAll(); // Allow access to the login page
-//         }
-//     }
-// }
+}
