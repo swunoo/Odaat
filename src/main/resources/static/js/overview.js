@@ -66,8 +66,10 @@ FORM.addEventListener('submit', async (e) => {
     // Sends data and Waits for res.
     console.log("theme to be sent:")
     console.log(theme);
+    console.log("repeated on from user input is:");
+    console.log(getValue(DAYS));
 
-    const response = await fetch(API_ROUTE, {
+    const response = await fetch(API_ROUTE + "/" + theme.type.toLowerCase(), {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -81,12 +83,15 @@ FORM.addEventListener('submit', async (e) => {
             else throw new Error(res.text());
         })
         .catch(err => {
+            console.log("ERROR THROWN.");
             themeCardUI.querySelector('.loading-curtain > h3').textContent = "Failed. Please reload."
             throw new Error(err)
         });
 
     // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
     console.log(response);
+    console.log("themecardUI");
+    console.log(themeCardUI);
     theme.id = response.split(":")[1].trim();
     themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
 });
@@ -144,6 +149,8 @@ function buildThemeCard(originalTheme){
         if(!classOfProgress.contains('hidden')) classOfProgress.add('hidden');
         if(classOfRoutinePlan.contains('hidden')) classOfRoutinePlan.remove('hidden');
     }
+
+    // TODO: loadingCurtains seem to pile up after each theme creation.
 
     const loadingCurtain = document.createElement('div');
     loadingCurtain.classList.add('loading-curtain');

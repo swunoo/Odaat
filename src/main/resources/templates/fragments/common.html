@@ -19,7 +19,7 @@
             th:with="id=${id} ?: '', multiple=${multiple} ?: 'false'"
             th:id="${id}" class="flex gap-2">
         <p th:text="${label}"></p>
-        <select th:id="${label}" th:multiple="${multiple}">
+        <select th:multiple="${multiple}">
             <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
         </select>
     </label>

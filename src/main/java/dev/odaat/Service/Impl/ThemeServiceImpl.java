@@ -39,6 +39,7 @@ public class ThemeServiceImpl implements ThemeService {
         allThemes.stream().forEach(theme -> {
             if(theme.getType() == ThemeType.PROJECT){
                 Project project = projectMapper.selectByThemeId(theme.getId());
+                if(project == null) return;
                 project = new Project(
                     theme,
                     project.getTimeEstimated(),
@@ -47,6 +48,7 @@ public class ThemeServiceImpl implements ThemeService {
                 completeThemes.add(project);
             } else {
                 Routine routine = routineMapper.selectByThemeId(theme.getId());
+                if(routine == null) return;
                 routine = new Routine(
                     theme,
                     routine.getRepeatedOn(),
@@ -88,8 +90,6 @@ public class ThemeServiceImpl implements ThemeService {
     public Optional<Theme> insert(Theme theme) throws IllegalArgumentException  {
 
         if(theme.getType() == null) throw new IllegalArgumentException("Theme type is empty.");
-
-        System.out.println("before creation id = " + theme.getId());
 
         // Saves to theme.
         themeMapper.add(theme);

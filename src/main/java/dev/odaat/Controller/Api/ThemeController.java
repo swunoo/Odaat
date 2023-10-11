@@ -48,26 +48,48 @@ public class ThemeController {
         }
     }
 
-    // Insert
-    @PostMapping
-    public ResponseEntity<String> create(
-        @Validated @RequestBody Project theme, BindingResult bindingResult){
-            
-        // TODO: MAKE THIS WORK FOR ROUTINE. (CASTING PROJ/ROUT FROM THEME DOESN'T SEEM TO WORK.)
-        
-        System.out.println("==========");
-        System.out.println("Received:");
-        System.out.println(theme);
-        System.out.println("==========");
+    // Insert Project
+    @PostMapping("/project")
+    public ResponseEntity<String> createProject(
+        @Validated @RequestBody Project project, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
+            System.out.println("Binding errors:");
+            System.out.println(bindingResult.getAllErrors().toString());
+
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Request body must be a Project object.");
         }
 
-        Optional<Theme> insertedTheme = themeService.insert(theme);
+        return createTheme(project);
+    }
 
+    // Insert Routine
+    @PostMapping("/routine")
+    public ResponseEntity<String> createRoutine(
+        @Validated @RequestBody Routine routine, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            System.out.println("Binding errors:");
+            System.out.println(bindingResult.getAllErrors().toString());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Request body must be a Routine object.");
+                    
+        } else return createTheme(routine);
+    }
+
+    // Internal method to create themes.
+    public ResponseEntity<String> createTheme(Theme theme){
+
+        System.out.println("==========");
+        System.out.println("Received internally:");
+        System.out.println(theme);
+        System.out.println("==========");
+
+        Optional<Theme> insertedTheme = themeService.insert(theme);
         
         if(insertedTheme.isPresent()){
             return ResponseEntity

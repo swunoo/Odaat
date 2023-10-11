@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-
 <mapper namespace="dev.odaat.Mapper.RoutineMapper">
 
     <select id="selectByThemeId" parameterType="int" resultType="dev.odaat.Entity.Routine">
@@ -16,7 +15,9 @@
             theme_id, repeated_on, is_active, start_time, end_time 
         ) VALUES (
             #{id},
-            ARRAY[#{repeatedOn[0]}, #{repeatedOn[1]}, #{repeatedOn[2]}, #{repeatedOn[3]}, #{repeatedOn[4]}, #{repeatedOn[5]}, #{repeatedOn[6]}, #{repeatedOn[7]}]::DayType[],
+            <foreach collection="repeatedOn" item="day" open="ARRAY[" separator="," close="]::DayType[]">
+                #{day}
+            </foreach>,
             #{isActive}, #{startTime}, #{endTime}
         );
     </insert>
