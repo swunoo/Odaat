@@ -19,6 +19,9 @@ console.log(CSRF_TOKEN);
 //     .then(res => console.log(res))
 //     .catch(err => console.log(err));
 
+// Sample card.
+const cardNode = document.getElementsByClassName(THEME_CLASS)[0];
+
 // Clicking the Add button.
 ADD_BTN.addEventListener('click', e => openModal(MODAL));
 
@@ -29,7 +32,18 @@ TYPE.addEventListener('change', e => {
     [DAYS, FROM, TO, DEADLINE, ESTIMATED].forEach(item => item.classList.toggle('hidden-forced'));
 });
 
-// Changing disabled attribute for END.
+// When theme menu icon is clicked
+function openThemeMenu(item){
+    let container = item;
+    // Find the theme-container element.
+    while (!container.classList.contains(THEME_CLASS)){
+        container = container.parentElement;
+    }
+
+    // TODO: Show modal for update/delete using data from [container] element.
+}
+
+// Changing disabled attribute for END based on whether the theme has been completed.
 STATUS.addEventListener('change', e => {
     const inputBox = END.children[1];
     inputBox.disabled = !inputBox.disabled;
@@ -78,9 +92,18 @@ FORM.addEventListener('submit', async (e) => {
         credentials: 'include',
         body: JSON.stringify(theme)
     })
+        // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
         .then(res => {
-            if(res.status === 201) return res.text();
-            else throw new Error(res.text());
+            if(res.status !== 201) throw new Error(res.text());
+            return res.text();
+        })
+        .then(response => {
+            console.log(response);
+            console.log("themecardUI");
+            console.log(themeCardUI);
+            theme.id = response.split(":")[1].trim();
+            themeCardUI.id = theme.id;
+            themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
         })
         .catch(err => {
             console.log("ERROR THROWN.");
@@ -88,12 +111,7 @@ FORM.addEventListener('submit', async (e) => {
             throw new Error(err)
         });
 
-    // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
-    console.log(response);
-    console.log("themecardUI");
-    console.log(themeCardUI);
-    theme.id = response.split(":")[1].trim();
-    themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
+
 });
 
 // Builds the UI of the theme data using Thymeleaf fragment and theme argument.
@@ -107,9 +125,9 @@ function buildThemeCard(originalTheme){
     }
 
     // Breaks down the structure of a theme-card-ui
-    const cardNode = document.getElementsByClassName(THEME_CLASS)[0];
     const themeCardUI = document.createElement('div');
     themeCardUI.className = THEME_CLASS;
+    themeCardUI.setAttribute('data-theme-key', 'id-card');
     themeCardUI.innerHTML = cardNode.innerHTML;
 
     // Create a new theme-card using theme argument
@@ -150,8 +168,7 @@ function buildThemeCard(originalTheme){
         if(classOfRoutinePlan.contains('hidden')) classOfRoutinePlan.remove('hidden');
     }
 
-    // TODO: loadingCurtains seem to pile up after each theme creation.
-
+    console.log("creating loading curtain");
     const loadingCurtain = document.createElement('div');
     loadingCurtain.classList.add('loading-curtain');
     loadingCurtain.innerHTML = "<h3>Adding</h3>"

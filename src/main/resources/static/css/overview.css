@@ -32,6 +32,10 @@
     margin-bottom: -15px;
 }
 
+.menu-container img{
+    cursor: pointer;
+}
+
 .theme-header {
     display: flex;
     gap: 2em;

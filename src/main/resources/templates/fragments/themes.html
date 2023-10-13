@@ -46,7 +46,7 @@
         theme, routineDescriptor, userImgDir
     )" th:id="${theme.id}" data-theme-key="id-card">
         <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
-            <img th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}"
+            <img onclick="openThemeMenu(this)" th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}"
                 alt="Menu"/>
         </label>
         <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
