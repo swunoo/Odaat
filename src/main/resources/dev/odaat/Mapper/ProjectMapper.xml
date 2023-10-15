@@ -22,7 +22,6 @@
         UPDATE project
             SET 
                 time_estimated = #{timeEstimated}, deadline = #{deadline}
-            WHERE theme_id=#{id}
-        RETURNING 1;
+            WHERE theme_id=#{id};
     </update>
 </mapper>

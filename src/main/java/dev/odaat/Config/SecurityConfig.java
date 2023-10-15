@@ -21,6 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(Customizer.withDefaults())
+            // .csrf().disable()
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers(HttpMethod.POST).permitAll()

@@ -32,8 +32,7 @@
                 time_spent = #{timeSpent},
                 type = #{type, javaType=dev.odaat.Entity.Enums.ThemeType, jdbcType=OTHER},
                 description = #{description}, img_name = #{imgName}, started_at = #{startedAt}, completed_at = #{completedAt}
-            WHERE id=#{id}
-        RETURNING 1;
+            WHERE id=#{id};
     </update>
 
     <delete id="delete" parameterType="int">

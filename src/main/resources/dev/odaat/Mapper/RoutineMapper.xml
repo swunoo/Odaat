@@ -25,9 +25,11 @@
     <update id="update" parameterType="dev.odaat.Entity.Theme">
         UPDATE routine
             SET 
-                repeated_on = ARRAY[#{repeatedOn[0]}, #{repeatedOn[1]}, #{repeatedOn[2]}, #{repeatedOn[3]}, #{repeatedOn[4]}, #{repeatedOn[5]}, #{repeatedOn[6]}, #{repeatedOn[7]}]::DayType[],
+                repeated_on =
+                <foreach collection="repeatedOn" item="day" open="ARRAY[" separator="," close="]::DayType[]">
+                    #{day}
+                </foreach>,
                 is_active = #{isActive}, start_time = #{startTime}, end_time = #{endTime}
-            WHERE theme_id=#{id}
-        RETURNING 1;
+            WHERE theme_id=#{id};
     </update>
 </mapper>

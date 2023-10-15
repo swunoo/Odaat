@@ -95,8 +95,6 @@ public class ThemeServiceImpl implements ThemeService {
         themeMapper.add(theme);
         int createdThemeID = theme.getId();
 
-        System.out.println("created id = " + createdThemeID);
-
         // Sets themeID.
         theme.setId(createdThemeID);
 
@@ -123,27 +121,18 @@ public class ThemeServiceImpl implements ThemeService {
         System.out.println("theme name before: " + themeMapper.selectById(id).getName());
 
         // Updates theme.
-        int updatedTheme = themeMapper.update(theme);
-
-        System.out.println("theme name after: " + themeMapper.selectById(id).getName());
-
-        System.out.println("updatedTheme = " + updatedTheme);
+        themeMapper.update(theme);
 
         // Updates project if it is a PROJECT, routine otherwise.
-        int updatedProjOrRoutine = (theme.getType() == ThemeType.PROJECT )
-                                    ? projectMapper.update((Project) theme)
-                                    : routineMapper.update((Routine) theme);
-
-        System.out.println("updatedProjOrRoutine = " + updatedProjOrRoutine);
-
+        if(theme.getType() == ThemeType.PROJECT) projectMapper.update((Project) theme);
+        else routineMapper.update((Routine) theme);
 
         // Returns theme if successful.
         return Optional.of(theme);
     }
 
     @Override
-    public boolean delete(int id) {
-        int deletedTheme = themeMapper.delete(id);
-        return (deletedTheme > 0);
+    public void delete(int id) {
+        themeMapper.delete(id);
     }
 }

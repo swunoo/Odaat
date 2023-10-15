@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ public class ThemeController {
 
     // GetById
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@RequestParam int id){
+    public ResponseEntity<Object> getById(@PathVariable int id){
         Optional<Theme> theme = themeService.getById(id);
         if(theme.isPresent()){
             return ResponseEntity.ok(theme.get());
@@ -82,12 +83,7 @@ public class ThemeController {
     }
 
     // Internal method to create themes.
-    public ResponseEntity<String> createTheme(Theme theme){
-
-        System.out.println("==========");
-        System.out.println("Received internally:");
-        System.out.println(theme);
-        System.out.println("==========");
+    private ResponseEntity<String> createTheme(Theme theme){
 
         Optional<Theme> insertedTheme = themeService.insert(theme);
         
@@ -103,17 +99,50 @@ public class ThemeController {
     }
 
     // Update
-    @PutMapping("/{id}")
-    public ResponseEntity<String> update(
-        @RequestParam int id, @Validated @RequestBody Theme theme, BindingResult bindingResult){
-            
+    @PutMapping("/project")
+    public ResponseEntity<String> updateProject(
+        @Validated @RequestBody Project project, BindingResult bindingResult){
+
         if(bindingResult.hasErrors()){
+            System.out.println("Binding errors:");
+            System.out.println(bindingResult.getAllErrors().toString());
+
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Request body must be a Theme object.");
+                    .body("Request body must be a Project object.");
+                    
+        } else return update(project);
+    }
+
+    @PutMapping("/routine")
+    public ResponseEntity<String> updateRoutine(
+        @Validated @RequestBody Routine routine, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            System.out.println("Binding errors:");
+            System.out.println(bindingResult.getAllErrors().toString());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Request body must be a Routine object.");
+                    
+        } else return update(routine);
+    }
+
+    private ResponseEntity<String> update(Theme theme){
+
+        System.out.println("==========");
+        System.out.println("Received internally:");
+        System.out.println(theme);
+        System.out.println("==========");
+
+        if(theme.getId()  == 0){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Theme ID is invalid.");
         }
 
-        Optional<Theme> updatedTheme = themeService.update(id, theme);
+        Optional<Theme> updatedTheme = themeService.update(theme.getId(), theme);
         if(updatedTheme.isPresent()){
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -127,14 +156,21 @@ public class ThemeController {
 
     // Delete
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@RequestParam int id){
+    public ResponseEntity<String> delete(@PathVariable int id){
+
+        System.out.println("--------------------");
+        System.out.println("DELETE");
+        System.out.println(id);
+        System.out.println("--------------------");
         
-        boolean isDeleted = themeService.delete(id);
-        if(isDeleted){
+        try {
+            themeService.delete(id);
             return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body("Successfully deleted.");
-        } else {
+                .status(HttpStatus.OK)
+                .body("Successfully deleted.");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Unable to delete.");

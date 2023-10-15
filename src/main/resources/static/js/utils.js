@@ -24,7 +24,6 @@ function openModal(modalEle, addDefault = true){
     
     adjustModal();
     modalEle.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 function closeModal(modalEle){
@@ -39,7 +38,6 @@ function closeModal(modalEle){
     clearData(modalEle);
 
     modalEle.style.display = 'none';
-    document.body.style.overflow = 'auto';
 }
 
 // Gets value of input, select and textarea tags inside the {parent}.

@@ -5,8 +5,29 @@ const cardNode = document.getElementsByClassName(THEME_CLASS)[0];
 ADD_BTN.addEventListener('click', e => openModal(MODAL));
 
 // Deleting a Theme.
-function deleteTheme(id){
-    console.log(id);
+function deleteTheme(item){
+    const id = item.getAttribute('data-delete-id');
+    console.log('id to delete: ' + id);
+    fetch(API_ROUTE + "/" + id, {
+        method: 'DELETE',
+        headers: {
+            "X-CSRF-TOKEN": CSRF_TOKEN
+        },
+        credentials: 'include'
+    })
+        .then(res => {
+            if(res.status !== 200) throw new Error(res.text());
+            return res.text();
+        })
+        .then(response => {
+            console.log(response);
+            oldCard = document.getElementById(id);
+            oldCard.remove();
+            closeModal(MODAL);
+        })
+        .catch(err => {
+            console.log("ERROR THROWN.");
+        });
 }
 
 // Changing modal inputs based on type.
@@ -66,8 +87,6 @@ function openThemeMenu(item){
     traverseAndExtract(container);
     console.log(themeData);
 
-    FORM, CLOSE, IMG, NAME, PROMPT, TYPE, PROGRAM, DESCRIPTION, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
-
     // Builds theme modal
     IMG.src = themeData.imgName;
     setValue(NAME, themeData.name);
@@ -83,6 +102,9 @@ function openThemeMenu(item){
     setValue(ESTIMATED, themeData.timeEstimated);
     setValue(FROM, themeData.startTime);
     setValue(TO, themeData.endTime);
+
+    console.log("id: " + themeData.id);
+    DELETEBTN.setAttribute('data-delete-id', themeData.id);
 
     DELETEBTN.classList.remove('hidden');
     SUBMIT.textContent = 'Update'
@@ -103,6 +125,9 @@ FORM.addEventListener('submit', async (e) => {
     // Stops page reloading.
     e.preventDefault();
 
+    const apiMethod = SUBMIT.textContent.toLowerCase() === 'update' ? 'PUT' : 'POST';
+    console.log(apiMethod);
+
     // Collects user input.
     // TODO: validation
     const parentTheme = createNewTheme(
@@ -119,18 +144,25 @@ FORM.addEventListener('submit', async (e) => {
     // Closes modal and Shows NEW_THEME as LOADING.
     closeModal(MODAL);
     const themeCardUI = buildThemeCard(theme);
+    if(apiMethod === 'PUT'){
+        const themeID = DELETEBTN.getAttribute('data-delete-id');
+        theme.id = themeID;
+        oldCard = document.getElementById(themeID);
+        oldCard.remove();
+    }
     THEME_WRAPPER.insertBefore(
         themeCardUI, THEME_WRAPPER.firstChild
     )
 
     // Sends data and Waits for res.
-    console.log("theme to be sent:")
-    console.log(theme);
     console.log("repeated on from user input is:");
     console.log(getValue(DAYS));
 
-    const response = await fetch(API_ROUTE + "/" + theme.type.toLowerCase(), {
-        method: 'POST',
+    console.log("theme to be sent:")
+    console.log(theme);
+
+    await fetch(API_ROUTE + "/" + theme.type.toLowerCase(), {
+        method: apiMethod,
         headers: {
             "Content-Type": "application/json",
             "X-CSRF-TOKEN": CSRF_TOKEN
@@ -140,7 +172,7 @@ FORM.addEventListener('submit', async (e) => {
     })
         // If successful, Shows NEW_THEME as SUCCESSFUL, else Shows as FAILED.
         .then(res => {
-            if(res.status !== 201) throw new Error(res.text());
+            if(res.status !== 201 && res.status !== 200) throw new Error(res.text());
             return res.text();
         })
         .then(response => {
@@ -156,8 +188,6 @@ FORM.addEventListener('submit', async (e) => {
             themeCardUI.querySelector('.loading-curtain > h3').textContent = "Failed. Please reload."
             throw new Error(err)
         });
-
-
 });
 
 // Builds the UI of the theme data using Thymeleaf fragment and theme argument.
@@ -214,10 +244,9 @@ function buildThemeCard(originalTheme){
         if(classOfRoutinePlan.contains('hidden')) classOfRoutinePlan.remove('hidden');
     }
 
-    console.log("creating loading curtain");
     const loadingCurtain = document.createElement('div');
     loadingCurtain.classList.add('loading-curtain');
-    loadingCurtain.innerHTML = "<h3>Adding</h3>"
+    loadingCurtain.innerHTML = "<h3>Loading</h3>"
     themeCardUI.append(loadingCurtain);
 
     // Returns the ui

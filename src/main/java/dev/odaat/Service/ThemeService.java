@@ -18,6 +18,7 @@ public interface ThemeService {
     
     public Optional<Theme> update(int id, Theme theme);
 
-    public boolean delete(int id);
+    // TODO: Make CUD return with status
+    public void delete(int id);
 
 }
