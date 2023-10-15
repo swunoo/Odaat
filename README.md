@@ -18,19 +18,26 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 ## Journal
 * Started on 2023 September
 
-## TODO
+## Questions
 * Q: Is the model passed from Controller or does thymeleaf just goes around grabbing properties?
 
-## STEPS
+## STEPS (Up to theme) -> completed on Oct 15
 * UI Design
 * ER, DDL
 * API routes (sample)
 * Controllers, HTML&CSS, modification of ER and DDL
 * JavaScript
-
 * Datepicker/timepicker/multiselect
 * CRUD apis
 * Connecting with js -> SECURITY CONFIG NEEDED
-
 * Security
-* Word limits
+
+## TODOs:
+* Clean the code
+* Work on Tasks
+    * API
+    * JS fetch
+    * CSS
+* Validation
+    * Word limits
+    * Required elements
