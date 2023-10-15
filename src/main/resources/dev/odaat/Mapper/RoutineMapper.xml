@@ -30,6 +30,6 @@
                     #{day}
                 </foreach>,
                 is_active = #{isActive}, start_time = #{startTime}, end_time = #{endTime}
-            WHERE theme_id=#{id};
+            WHERE theme_id = #{id};
     </update>
 </mapper>

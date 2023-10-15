@@ -179,8 +179,10 @@ FORM.addEventListener('submit', async (e) => {
             console.log(response);
             console.log("themecardUI");
             console.log(themeCardUI);
-            theme.id = response.split(":")[1].trim();
-            themeCardUI.id = theme.id;
+            if(apiMethod === 'POST'){
+                theme.id = response.split(":")[1].trim();
+                themeCardUI.id = theme.id;
+            }
             themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
         })
         .catch(err => {
@@ -211,7 +213,7 @@ function buildThemeCard(originalTheme){
         const key = tag.getAttribute(DATA_ATTRIBUTE)
 
         if(key === 'calc-progress' && theme.type === "PROJECT"){
-            tag.value = (theme.timeSpent/theme.timeEstimated) * 100;
+            tag.value = theme.timeEstimated > 0 ? (theme.timeSpent/theme.timeEstimated) * 100 : 0;
         } else if(key === 'calc-completedAt'){
             tag.textContent = theme.completedAt !== null ? theme.completedAt : (
                 theme.type === 'ROUTINE' ? 'Present' : theme.deadline

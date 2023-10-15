@@ -118,6 +118,8 @@ public class ThemeController {
     public ResponseEntity<String> updateRoutine(
         @Validated @RequestBody Routine routine, BindingResult bindingResult){
 
+            System.out.println(routine.getRepeatedOn());
+
         if(bindingResult.hasErrors()){
             System.out.println("Binding errors:");
             System.out.println(bindingResult.getAllErrors().toString());
