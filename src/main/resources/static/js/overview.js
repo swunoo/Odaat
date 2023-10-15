@@ -1,36 +1,16 @@
-console.log(CSRF_TOKEN);
-
-// fetch(API_ROUTE + "/all", {
-//     method: 'GET',
-//     mode: 'no-cors',
-//     credentials: 'include'}).then(res => res.json())
-//     .then(res => console.log(res))
-//     .catch(err => console.log(err));
-
-// fetch(API_ROUTE, {
-//     method: 'POST',
-//     headers: {
-//         "Content-Type": "application/json",
-//         "X-CSRF-TOKEN": CSRF_TOKEN
-//     },
-//     credentials: 'include',
-//     body: JSON.stringify("theme")
-// }).then(res => res.text())
-//     .then(res => console.log(res))
-//     .catch(err => console.log(err));
-
 // Sample card.
 const cardNode = document.getElementsByClassName(THEME_CLASS)[0];
 
 // Clicking the Add button.
 ADD_BTN.addEventListener('click', e => openModal(MODAL));
 
+// Deleting a Theme.
+function deleteTheme(id){
+    console.log(id);
+}
+
 // Changing modal inputs based on type.
-[DAYS, FROM, TO].forEach(item => item.classList.add('hidden-forced')); // Initial
-TYPE.addEventListener('change', e => {
-    TYPE.children[1].classList.toggle('bg-blue-forced');
-    [DAYS, FROM, TO, DEADLINE, ESTIMATED].forEach(item => item.classList.toggle('hidden-forced'));
-});
+TYPE.addEventListener('change', adjustModal);
 
 // When theme menu icon is clicked
 function openThemeMenu(item){
@@ -41,6 +21,72 @@ function openThemeMenu(item){
     }
 
     // TODO: Show modal for update/delete using data from [container] element.
+    const themeData = {};
+    // Building theme object from themeUICard element.
+    const traverseAndExtract = tag => {
+
+        // progress tag is hidden if routine.
+        if(tag.nodeName === 'PROGRESS'){
+            themeData.type = tag.className.includes('hidden') ? 'ROUTINE' : 'PROJECT';
+        }
+
+        const data = tag.getAttribute(DATA_ATTRIBUTE);
+        if(data !== null){
+
+            // For 'completedAt'.
+            if(data === 'calc-completedAt'){
+                console.log('calc-completedAt TAG');
+                console.log(tag.textContent);
+
+                if(tag.textContent === 'Present'){
+                    themeData['completedAt'] = null;
+                } else {
+                    const completionTime = Date.parse(tag.textContent);
+                    const currentTime = Date.now();
+                    console.log(completionTime);
+                    console.log(currentTime);
+                    if(completionTime > currentTime){
+                        themeData['deadline'] = tag.textContent;
+                    } else {
+                        themeData['completedAt'] = tag.textContent;
+                    }
+                }
+                
+            } else {
+                const [ attr, key ] = data.split('-'); // [e.g.] data-theme-key = "value-startTime"
+                if(attr !== 'calc') themeData[key] = tag[attr];
+            }
+        }
+
+        if(tag.children.length > 0){
+            [...tag.children].forEach(traverseAndExtract);
+        }
+    }
+
+    traverseAndExtract(container);
+    console.log(themeData);
+
+    FORM, CLOSE, IMG, NAME, PROMPT, TYPE, PROGRAM, DESCRIPTION, START, DEADLINE, DAYS, STATUS, END, SPENT, ESTIMATED, FROM, TO, SUBMIT
+
+    // Builds theme modal
+    IMG.src = themeData.imgName;
+    setValue(NAME, themeData.name);
+    setValue(TYPE, themeData.type);
+    setValue(PROGRAM, themeData.program);
+    setValue(DESCRIPTION, themeData.description);
+    setValue(START, themeData.startedAt);
+    setValue(END, themeData.completedAt);
+    setValue(DEADLINE, themeData.deadline);
+    setValue(DAYS, themeData.repeatedOn);
+    setValue(STATUS, themeData.completedAt === null ?  'IN PROGRESS' : 'ENDED');
+    setValue(SPENT, themeData.timeSpent);
+    setValue(ESTIMATED, themeData.timeEstimated);
+    setValue(FROM, themeData.startTime);
+    setValue(TO, themeData.endTime);
+
+    DELETEBTN.classList.remove('hidden');
+    SUBMIT.textContent = 'Update'
+    openModal(MODAL, false);
 }
 
 // Changing disabled attribute for END based on whether the theme has been completed.
@@ -127,7 +173,7 @@ function buildThemeCard(originalTheme){
     // Breaks down the structure of a theme-card-ui
     const themeCardUI = document.createElement('div');
     themeCardUI.className = THEME_CLASS;
-    themeCardUI.setAttribute('data-theme-key', 'id-card');
+    themeCardUI.setAttribute('data-theme-key', 'id-id');
     themeCardUI.innerHTML = cardNode.innerHTML;
 
     // Create a new theme-card using theme argument
@@ -140,7 +186,7 @@ function buildThemeCard(originalTheme){
             tag.textContent = theme.completedAt !== null ? theme.completedAt : (
                 theme.type === 'ROUTINE' ? 'Present' : theme.deadline
             ) 
-        } else if(key === 'id-card') {
+        } else if(key === 'id-id') {
             tag.id = theme.id;
         } else if(key !== null) {
             const [attr, val] = key.split('-'); // "textContent-[key]" -> "textContent", "[key]"

@@ -6,6 +6,7 @@ html{
     --brand-blue-light: #D6E6ED;
     --brand-blue-dark: #023047;
     --brand-orange: #FB8500;
+    --brand-red: #fb4700;
     --brand-gray-light: #eee;
     --brand-gray-mid: #aaa;
     --brand-gray-dark: #333;
@@ -115,6 +116,12 @@ nav img {
 .gap-4 { gap: 7em; }
 .gap-5 { gap: 10em; }
 
+.ml-auto { margin-left: auto; }
+
+.mt-3 { margin-top: 3em; }
+
+.w-50-forced { width: 50% !important; }
+
 .font-bold{ font-weight: 100; }
 .font-thin{ font-weight: 700; }
 .font-big { font-size: 25px; }
@@ -122,6 +129,7 @@ nav img {
 .font-title { font-family: 'Itim', cursive; }
 .font-right { text-align: right; }
 .font-center { text-align: center; }
+.font-cap { text-transform: uppercase; }
 
 .bg-blue-dark { background-color: var(--brand-blue-dark); color: white; }
 .bg-gray-light { background-color: var(--brand-gray-light); }
@@ -135,8 +143,9 @@ nav img {
 
 /* Components */
 .btn-blue { background-color: var(--brand-blue-light); }
-.btn-blue-dark { background-color: var(--brand-blue-dark); color: white;}
+.btn-blue-dark { background-color: var(--brand-blue-dark); color: white; font-weight: 700;}
 .btn-orange { background-color: var(--brand-orange); color: white; font-weight: 700;}
+.btn-red { background-color: var(--brand-red); color: white; font-weight: 700;}
 
 .title-container {
     display: flex;

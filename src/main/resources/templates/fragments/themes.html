@@ -44,11 +44,12 @@
     <!-- Fragment for a single theme -->
     <div class="theme-container" th:fragment="theme-single(
         theme, routineDescriptor, userImgDir
-    )" th:id="${theme.id}" data-theme-key="id-card">
+    )" th:id="${theme.id}" data-theme-key="id-id">
         <label class="menu-container" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
             <img onclick="openThemeMenu(this)" th:src="${'/images/ui/menu-' + (theme.type == routineDescriptor ? 'white.png' : 'black.png')}"
                 alt="Menu"/>
         </label>
+        <div th:text="${theme.program}" data-theme-key="textContent-program"></div>
         <div class="theme-header" th:classappend="${theme.type == routineDescriptor ? 'bg-gray-dark' : 'bg-white'}">
             <img th:src="${userImgDir + theme.imgName}" data-theme-key="src-imgName"/>
             <div class="theme-title-container">
@@ -76,14 +77,15 @@
                 </progress>
                 <p th:classappend="${theme.type != routineDescriptor ? 'hidden' : ''}" class="font-small font-thin routine-plan">
                     <span th:text="${theme.type == routineDescriptor ? theme.repeatedOn : ''}" data-theme-key="textContent-repeatedOn"></span>
-                    <span th:text="${theme.type == routineDescriptor ? theme.startTime + ' ~ ' : ''}" data-theme-key="textContent-startTime"></span>
+                    <span th:text="${theme.type == routineDescriptor ? theme.startTime : ''}" data-theme-key="textContent-startTime"></span>
+                    <span th:text="${theme.type == routineDescriptor ? ' ~ ' : ''}"></span>
                     <span th:text="${theme.type == routineDescriptor ? theme.endTime : ''}" data-theme-key="textContent-endTime"></span>
                 </p>
             </div>
         </div>
         <div class="theme-description-container">
-            <div th:text="${theme.description}" data-theme-key="val-description"></div>
-            <p class="font-small font-thin font-right">[<span th:text="${theme.timeSpent}"  data-theme-key="val-timeSpent"></span>h]</p>
+            <div th:text="${theme.description}" data-theme-key="textContent-description"></div>
+            <p class="font-small font-thin font-right">[<span th:text="${theme.timeSpent}"  data-theme-key="textContent-timeSpent"></span>h]</p>
         </div>
     </div>
 </body>

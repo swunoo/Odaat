@@ -32,7 +32,10 @@
             <div th:replace="fragments/common :: input (label='From', id='mt-from', type='time')"></div>
             <div th:replace="fragments/common :: input (label='To', id='mt-to', type='time')"></div>
         </div>
-        <button id="mt-submit" class="btn-blue-dark" type="submit">CREATE</button>
+        <div class="flex gap-1 mt-3 ml-auto w-50-forced">
+            <button id="mt-delete" class="btn-red font-cap" type="button" onclick="deleteTheme(this.id)">Delete</button>
+            <button id="mt-submit" class="btn-blue-dark font-cap" type="submit">Create</button>
+        </div>
     </form>
 </body>
 </html>
