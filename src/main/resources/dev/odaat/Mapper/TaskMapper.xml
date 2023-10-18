@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.odaat.Mapper.TaskMapper">
+
+    <select id="selectAll" resultType="dev.odaat.Entity.Task">
+        SELECT * FROM task
+    </select>
+
+    <select id="selectById" parameterType="int" resultType="dev.odaat.Entity.Task">
+        SELECT task.* FROM task WHERE id=#{id}
+    </select>
+
+    <insert id="add" parameterType="dev.odaat.Entity.Task" useGeneratedKeys='true' keyProperty='id'>
+        INSERT INTO task(
+            is_routine_task, theme, date, start_time, end_time, description, status
+        ) VALUES (
+            #{isRoutineTask},
+            #{theme},
+            #{date},
+            #{startTime},
+            #{endTime},
+            #{description},
+            #{status}
+        );
+    </insert>
+
+    <update id="update" parameterType="dev.odaat.Entity.Theme">
+        UPDATE task
+            SET 
+                is_routine_task = #{isRoutineTask},
+                theme = #{theme},
+                date = #{date},
+                start_time = #{startTime},
+                end_time = #{endTime},
+                description = #{description},
+                status = #{status, javaType=dev.odaat.Entity.Enums.TaskStatus, jdbcType=OTHER},
+            WHERE id=#{id};
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM task WHERE id=#{id};
+    </delete>
+</mapper>

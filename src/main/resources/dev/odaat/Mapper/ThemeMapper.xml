@@ -36,6 +36,6 @@
     </update>
 
     <delete id="delete" parameterType="int">
-        DELETE FROM theme WHERE id=#{id} RETURNING 1;
+        DELETE FROM theme WHERE id=#{id};
     </delete>
 </mapper>

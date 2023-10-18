@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import dev.odaat.Entity.Enums.DayType;
 import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.TaskStatus;
 import dev.odaat.Service.MockerService;
+import dev.odaat.Service.TaskService;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -28,33 +30,15 @@ public class DashboardController {
 
     @Value("${app.dir.userimg}")
     String userImgDir;
+
+    @Autowired
+    TaskService taskService;
     
     // Gets necessary data through services and returns html.
     @GetMapping
     public String dashboard(Model model){
 
-        // imgName = t_[themeId]_[imgName]
-
-        Theme mockProject = null;
-
-        Theme mockRoutine = null;
-
-        // Mock data for testing
-        model.addAttribute(
-            "mockTasks",
-            Arrays.asList(
-                new Task(
-                    1, false, mockProject, LocalDate.now(), LocalTime.of(9, 0), LocalTime.of(10, 0), "Lorem Ipsum Dolor Sit Amet", TaskStatus.COMPLETED
-                ),
-                new Task(
-                    2, false, mockProject, LocalDate.now(), LocalTime.of(10, 0), LocalTime.of(10, 30), "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eaque ullam, dolores corporis porro nostrum iusto optio eveniet exercitationem minima nam suscipit neque asperiores atque ut perspiciatis deleniti alias. Impedit cum eius mollitia sed error totam. Iusto assumenda perferendis reiciendis asperiores aspernatur. At accusamus repudiandae voluptatum dignissimos dolor, neque, consequatur nihil voluptas quod velit, id dicta ducimus fuga aut tempore. Officiis doloribus cum, excepturi quaerat vitae eius expedita odio neque possimus iure blanditiis similique quo voluptatibus optio illo! Enim sapiente similique dolorum repudiandae optio nulla itaque consequuntur eligendi rerum, consequatur non omnis fugit sed explicabo maxime eveniet numquam est reiciendis debitis.", TaskStatus.IN_PROGRESS
-                ),
-                new Task(
-                    3, true, mockRoutine, LocalDate.now(), LocalTime.of(10, 30), LocalTime.of(15, 0), "Lorem.", TaskStatus.TO_DO
-                )
-            )    
-        );
-
+        // With Mocks
         model.addAttribute(
             "reportOptions",
             Arrays.asList(
@@ -70,8 +54,10 @@ public class DashboardController {
         );
 
         model.addAttribute("completionStatus", TaskStatus.COMPLETED);
-
         model.addAttribute("userImgDir", userImgDir);
+
+        // Without mocks
+        model.addAttribute("mockTasks", taskService.getAll());
 
         return "dashboard";
     }

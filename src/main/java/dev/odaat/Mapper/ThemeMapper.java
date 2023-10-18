@@ -19,6 +19,6 @@ public interface ThemeMapper {
 
     int update(Theme theme);
 
-    int delete(int id);
+    void delete(int id);
 
 }
