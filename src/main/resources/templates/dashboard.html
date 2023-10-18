@@ -11,7 +11,7 @@
     <div th:replace="fragments/common :: header"></div>
     <div class="flex justify-center">
         <div th:replace="fragments/task :: task-details (
-            tasks = ${mockTasks},
+            tasks = ${tasks},
             reportOptions = ${reportOptions},
             completionStatus = ${completionStatus},
             userImgDir = ${userImgDir},

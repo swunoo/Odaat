@@ -55,7 +55,7 @@ public class DashboardController {
         model.addAttribute("userImgDir", userImgDir);
 
         // Without mocks
-        model.addAttribute("mockTasks", taskService.getAll());
+        model.addAttribute("tasks", taskService.getAll());
 
         return "dashboard";
     }
