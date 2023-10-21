@@ -4,12 +4,41 @@
 
 <mapper namespace="dev.odaat.Mapper.TaskMapper">
 
-    <select id="selectAll" resultType="dev.odaat.Entity.Task">
-        SELECT * FROM task
+    <resultMap id="TaskResult" type="dev.odaat.Entity.Task">
+        <id property="id" column="id"/>
+        <result property="isRoutineTask" column="is_routine_task"/>
+        <result property="date" column="date"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <association property="theme" column="theme" select="selectTheme" javaType="dev.odaat.Entity.Theme"/>
+        <!-- <association property="theme" column="theme" javaType="dev.odaat.Entity.Theme">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="program" column="program"/>
+            <result property="timeSpent" column="timespent"/>
+            <result property="type" column="type"/>
+            <result property="description" column="description"/>
+            <result property="imgName" column="img_name"/>
+            <result property="startedAt" column="started_at"/>
+            <result property="completedAt" column="completed_at"/>
+        </association> -->
+    </resultMap>
+
+    <select id="selectTheme" parameterType="int" resultType="dev.odaat.Entity.Theme">
+        SELECT theme.* FROM theme WHERE id=#{id}
     </select>
 
-    <select id="selectById" parameterType="int" resultType="dev.odaat.Entity.Task">
-        SELECT task.* FROM task WHERE id=#{id}
+    <select id="selectAll" resultMap="TaskResult">
+        SELECT * FROM task
+        LEFT JOIN theme ON task.theme = theme.id
+    </select>
+
+    <select id="selectById" parameterType="int" resultMap="TaskResult">
+        SELECT * FROM task
+        LEFT JOIN theme ON task.theme = theme.id
+        WHERE id=#{id}
     </select>
 
     <insert id="add" parameterType="dev.odaat.Entity.Task" useGeneratedKeys='true' keyProperty='id'>
@@ -26,7 +55,7 @@
         );
     </insert>
 
-    <update id="update" parameterType="dev.odaat.Entity.Theme">
+    <update id="update" parameterType="dev.odaat.Entity.Task">
         UPDATE task
             SET 
                 is_routine_task = #{isRoutineTask},

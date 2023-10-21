@@ -131,11 +131,10 @@ FORM.addEventListener('submit', async (e) => {
     // Collects user input.
     // TODO: validation
     const parentTheme = createNewTheme(
-        getValue(NAME), getValue(PROGRAM), getValue(DESCRIPTION)
+        getValue(NAME), getValue(PROGRAM), getValue(DESCRIPTION), getValue(END)
     );
 
     console.log(parentTheme);
-    console.log("name, program, description, estimated, deadline, days, from, to")
 
     const theme = (getValue(TYPE)==='PROJECT') 
                     ? createProject(parentTheme, getValue(ESTIMATED), getValue(DEADLINE))

@@ -10,7 +10,7 @@
 <body>
     <div th:replace="fragments/common :: header"></div>
     <div class="flex justify-center">
-        <div th:replace="fragments/task :: task-details (
+        <div th:if="${not #lists.isEmpty(tasks)}" th:replace="fragments/task :: task-details (
             tasks = ${tasks},
             reportOptions = ${reportOptions},
             completionStatus = ${completionStatus},
@@ -18,7 +18,7 @@
         )"></div>
     </div>
     <div th:replace="fragments/task :: task-adder (
-        projectList = ${mockProjectList}
+        themeList = ${themeList}
     )"></div>
 </body>
 </html>

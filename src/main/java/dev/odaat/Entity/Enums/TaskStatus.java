@@ -6,7 +6,7 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 public enum TaskStatus implements JdbcType{
-    TO_DO, IN_PROGRESS, COMPLETED;
+    TODO, IN_PROGRESS, COMPLETED;
 
     @Override
     public int getJdbcTypeCode() {

@@ -18,8 +18,9 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 ## Journal
 * Started on 2023 September
 
-## Questions
+## Topics to explore
 * Q: Is the model passed from Controller or does thymeleaf just goes around grabbing properties?
+* L: "Using jakarta persistence annotations like @OneToMany with MyBatis"
 
 ## STEPS (Up to theme) -> completed on Oct 15
 * UI Design

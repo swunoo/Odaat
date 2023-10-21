@@ -12,10 +12,10 @@ function createTheme(
 }
 
 function createNewTheme(
-    name, program, description
+    name, program, description, completedAt
 ){
     return createTheme(
-        name, program, 0, description, 't_1_java.png', new Date().toISOString().slice(0, 10), null
+        name, program, 0, description, 't_1_java.png', new Date().toISOString().slice(0, 10), completedAt
     );
 }
 

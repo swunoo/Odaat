@@ -1,9 +1,12 @@
 package dev.odaat.Entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.ThemeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 
 public class Theme {
     int id;

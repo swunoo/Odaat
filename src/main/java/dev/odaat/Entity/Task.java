@@ -6,19 +6,22 @@ import java.time.LocalTime;
 import org.springframework.cglib.core.Local;
 
 import dev.odaat.Entity.Enums.TaskStatus;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class Task {
     int id;
-    boolean isRoutineTask;
     Theme theme;
+    boolean isRoutineTask;
     LocalDate date;
-    LocalTime startTime;
-    LocalTime endTime;
     String description;
     TaskStatus status;
+    LocalTime startTime;
+    LocalTime endTime;
 
-    public Task(int id, boolean isRoutineTask, Theme theme, LocalDate date, LocalTime startTime, LocalTime endTime,
-            String description, TaskStatus status) {
+    public Task(int id, Theme theme, boolean isRoutineTask, LocalDate date,
+            String description, TaskStatus status, LocalTime startTime, LocalTime endTime) {
         this.id = id;
         this.isRoutineTask = isRoutineTask;
         this.theme = theme;

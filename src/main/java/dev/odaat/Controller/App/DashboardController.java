@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,7 @@ import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.TaskStatus;
 import dev.odaat.Service.MockerService;
 import dev.odaat.Service.TaskService;
+import dev.odaat.Service.ThemeService;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -33,28 +36,29 @@ public class DashboardController {
 
     @Autowired
     TaskService taskService;
+    @Autowired
+    ThemeService themeService;
     
     // Gets necessary data through services and returns html.
     @GetMapping
     public String dashboard(Model model){
 
-        // With Mocks
         model.addAttribute(
             "reportOptions",
             Arrays.asList(
                 "Daily", "Weekly", "Monthly"
             )
         );
-        model.addAttribute(
-            "mockProjectList",
-            Arrays.asList(
-                "Java", "Mybatis", "Thymeleaf"
-            )
-        );
+
         model.addAttribute("completionStatus", TaskStatus.COMPLETED);
         model.addAttribute("userImgDir", userImgDir);
 
-        // Without mocks
+        List<String> themeNames = themeService.getAll().stream().map(theme -> theme.getName()).collect(Collectors.toList());
+        List<Task> tasks = taskService.getAll();
+        System.out.println("................................");
+        tasks.stream().forEach(t -> System.out.println(t));
+        System.out.println("................................");
+        model.addAttribute("themeList", themeNames);
         model.addAttribute("tasks", taskService.getAll());
 
         return "dashboard";

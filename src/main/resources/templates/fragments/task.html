@@ -8,7 +8,11 @@
 <body>
     <section th:fragment="task-details (tasks, reportOptions, completionStatus)" class="task-details">
         <header class="title-container bg-blue-dark">
-            <p class="font-title font-big font-bold" th:text="${tasks[0].date}"></p>
+            <p class="font-title font-big font-bold" th:text="${
+                not #lists.isEmpty(tasks) 
+                ? tasks[0].date 
+                : #dates.format(#dates.creatNow(), 'YYYY/MM/dd')
+            }"></p>
             <div th:replace="fragments/common :: drop-down (label='', options=${reportOptions})" class="task-container"></div>
         </header>
         <table>
@@ -27,9 +31,9 @@
         </table>
     </section>
 
-    <form th:fragment="task-adder (projectList)" class="task-adder">
+    <form th:fragment="task-adder (themeList)" class="task-adder">
         <label>
-            <div th:replace="fragments/common :: drop-down (label='Project:', options=${projectList})"></div>
+            <div th:replace="fragments/common :: drop-down (label='Project:', options=${themeList})"></div>
         </label>
         <label class="flex gap-2">
             Description:

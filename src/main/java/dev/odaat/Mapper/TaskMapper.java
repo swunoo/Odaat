@@ -2,8 +2,11 @@ package dev.odaat.Mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import dev.odaat.Entity.Task;
 
+@Mapper
 public interface TaskMapper {
 
     List<Task> selectAll();

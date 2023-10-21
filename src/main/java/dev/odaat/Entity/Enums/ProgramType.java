@@ -7,8 +7,8 @@ import org.hibernate.type.descriptor.java.JavaType;
 import org.hibernate.type.descriptor.jdbc.JdbcType;
 
 public enum ProgramType implements JdbcType{
-    FAMILY, CHORES, JOB, PERSONAL, LEARNING;
-
+    FAMILY, CHORES, JOB, EXERCISE, LEARNING;
+    
     // To be able to cast to JdbcType in mappper xml
     @Override
     public <X> ValueBinder<X> getBinder(JavaType<X> arg0) {

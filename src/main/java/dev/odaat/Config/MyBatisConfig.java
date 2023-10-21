@@ -14,6 +14,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
+import dev.odaat.Mapper.TypeHandlers.ThemeTypeHandler;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -33,21 +35,10 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
+        factoryBean.setTypeHandlers(new ThemeTypeHandler());
+        factoryBean.setTypeHandlersPackage("dev.odaat.Mapper.TypeHandlers");
 
-        // factoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
-
-
-        System.out.println("ASDF");
-        String filePath = System.getProperty("user.dir") + "/src/main/resources/mybatis-config.xml";
-        System.out.println(filePath);
-        File file = new File(filePath);
-        
-        System.out.println("EXISTS: " + file.exists());
-
-        // Create a MyBatis Configuration instance
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        
-        // Set the mapUnderscoreToCamelCase option to true
         configuration.setMapUnderscoreToCamelCase(true);
         
         factoryBean.setConfiguration(configuration);
