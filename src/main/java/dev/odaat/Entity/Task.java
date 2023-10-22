@@ -5,7 +5,9 @@ import java.time.LocalTime;
 
 import org.springframework.cglib.core.Local;
 
+import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.TaskStatus;
+import dev.odaat.Entity.Enums.ThemeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,17 +15,15 @@ import jakarta.persistence.ManyToOne;
 public class Task {
     int id;
     Theme theme;
-    boolean isRoutineTask;
     LocalDate date;
     String description;
     TaskStatus status;
     LocalTime startTime;
     LocalTime endTime;
 
-    public Task(int id, Theme theme, boolean isRoutineTask, LocalDate date,
+    public Task(int id, Theme theme, LocalDate date,
             String description, TaskStatus status, LocalTime startTime, LocalTime endTime) {
         this.id = id;
-        this.isRoutineTask = isRoutineTask;
         this.theme = theme;
         this.date = date;
         this.startTime = startTime;
@@ -32,12 +32,20 @@ public class Task {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public Task(
+        int id, LocalDate date,
+        String description, TaskStatus status, LocalTime startTime, LocalTime endTime,
+        int themeId, String name, ProgramType program, double timeSpent, ThemeType type, String themeDescription, String imgName,  LocalDate startedAt, LocalDate completedAt){
+
+        this(
+            id,
+            new Theme(themeId, name, program, timeSpent, type, themeDescription, imgName, startedAt, completedAt),
+            date, description, status, startTime, endTime);
+            
     }
 
-    public boolean isRoutineTask() {
-        return isRoutineTask;
+    public int getId() {
+        return id;
     }
 
     public Theme getTheme() {
