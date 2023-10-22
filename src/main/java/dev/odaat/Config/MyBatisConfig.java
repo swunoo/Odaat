@@ -14,7 +14,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
-import dev.odaat.Mapper.TypeHandlers.ThemeTypeHandler;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +34,7 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setTypeHandlers(new ThemeTypeHandler());
+        // factoryBean.setTypeHandlers(new ThemeTypeHandler());
         factoryBean.setTypeHandlersPackage("dev.odaat.Mapper.TypeHandlers");
 
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();

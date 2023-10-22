@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import dev.odaat.Entity.Project;
@@ -19,6 +20,7 @@ import dev.odaat.Mapper.ThemeMapper;
 import dev.odaat.Service.ThemeService;
 
 @Profile("psql_v1")
+@Component
 @Service("ThemeService")
 public class ThemeServiceImpl implements ThemeService {
 

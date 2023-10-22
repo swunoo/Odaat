@@ -7,8 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
 @SpringBootApplication
-@ComponentScan("dev.odaat.Mapper.TypeHandlers")
-@ComponentScan("dev.odaat.Service")
+@MapperScan("dev.odaat.Mapper")
+@ComponentScan(basePackages = "dev.odaat")
 public class OdaatApplication {
 
 	public static void main(String[] args) {
