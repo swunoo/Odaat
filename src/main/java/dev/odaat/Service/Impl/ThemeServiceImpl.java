@@ -18,8 +18,8 @@ import dev.odaat.Mapper.RoutineMapper;
 import dev.odaat.Mapper.ThemeMapper;
 import dev.odaat.Service.ThemeService;
 
-@Service("ThemeService")
 @Profile("psql_v1")
+@Service("ThemeService")
 public class ThemeServiceImpl implements ThemeService {
 
     @Autowired ThemeMapper themeMapper;

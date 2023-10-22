@@ -12,18 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring6.expression.Themes;
 
 import dev.odaat.Entity.Theme;
 import dev.odaat.Service.ThemeService;
+import jakarta.annotation.Resource;
 
+// @Profile("psql_v1")
 @Service
-@Profile("psql_v1")
 public class ThemeTypeHandler extends BaseTypeHandler<Theme>{
 
-    // TODO: DI doesn't seem to work yet.
     @Autowired
     ThemeService themeService;
-
+    
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Theme theme, JdbcType jdbcType) throws SQLException {
         ps.setInt(i, theme.getId());

@@ -11,8 +11,8 @@ import dev.odaat.Entity.Task;
 import dev.odaat.Mapper.TaskMapper;
 import dev.odaat.Service.TaskService;
 
-@Service("TaskService")
 @Profile("psql_v1")
+@Service("TaskService")
 public class TaskServiceImpl implements TaskService{
 
     @Autowired TaskMapper taskMapper;

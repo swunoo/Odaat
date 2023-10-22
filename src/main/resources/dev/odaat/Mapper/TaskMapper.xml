@@ -4,6 +4,18 @@
 
 <mapper namespace="dev.odaat.Mapper.TaskMapper">
 
+        <resultMap id="ThemeResult" type="dev.odaat.Entity.Theme">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="program" column="program"/>
+            <result property="timeSpent" column="timespent"/>
+            <result property="type" column="type"/>
+            <result property="description" column="description"/>
+            <result property="imgName" column="img_name"/>
+            <result property="startedAt" column="started_at"/>
+            <result property="completedAt" column="completed_at"/>
+        </resultMap>
+
     <resultMap id="TaskResult" type="dev.odaat.Entity.Task">
         <id property="id" column="id"/>
         <result property="isRoutineTask" column="is_routine_task"/>
@@ -12,7 +24,7 @@
         <result property="status" column="status"/>
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
-        <association property="theme" column="theme" select="selectTheme" javaType="dev.odaat.Entity.Theme"/>
+        <association property="theme" column="theme" resultMap="ThemeResult"/>
         <!-- <association property="theme" column="theme" javaType="dev.odaat.Entity.Theme">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
