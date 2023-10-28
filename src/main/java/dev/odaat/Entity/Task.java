@@ -21,6 +21,8 @@ public class Task {
     LocalTime startTime;
     LocalTime endTime;
 
+    public Task(){}
+
     public Task(int id, Theme theme, LocalDate date,
             String description, TaskStatus status, LocalTime startTime, LocalTime endTime) {
         this.id = id;
@@ -54,6 +56,15 @@ public class Task {
             
     }
 
+    public Task(int themeId, LocalDate date,
+    String description, TaskStatus status, LocalTime startTime, LocalTime endTime){
+
+    this(
+        new Theme(themeId, null, null, 0, null, null, null, null, null),
+        date, description, status, startTime, endTime);
+            
+    }
+
     public int getId() {
         return id;
     }
@@ -84,6 +95,10 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setTheme(Theme theme){
+        this.theme = theme;
     }
 
 }

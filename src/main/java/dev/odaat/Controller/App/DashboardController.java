@@ -27,6 +27,8 @@ import dev.odaat.Entity.Enums.TaskStatus;
 import dev.odaat.Service.MockerService;
 import dev.odaat.Service.TaskService;
 import dev.odaat.Service.ThemeService;
+import dev.odaat.Utils.Utils;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -42,7 +44,7 @@ public class DashboardController {
     
     // Gets necessary data through services and returns html.
     @GetMapping
-    public String dashboard(Model model){
+    public String dashboard(Model model, HttpServletRequest request){
         
         // testServices();
 
@@ -61,6 +63,9 @@ public class DashboardController {
 
         model.addAttribute("themeList", themes);
         model.addAttribute("tasks", taskService.getAll());
+
+        String apiRoute = Utils.buildApiRoute(request.getRequestURL().toString(), "task");
+        model.addAttribute("apiRoute", apiRoute);
 
         return "dashboard";
     }

@@ -37,7 +37,6 @@ public class Theme {
 
     // To facilitate mapping of Project and Routine.
     public Theme(){
-
     }
 
     @Override

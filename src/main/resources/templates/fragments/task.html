@@ -19,7 +19,11 @@
             <tr th:each="task : ${tasks}" th:classappend="${task.status == completionStatus ? 'completed-task' : ''}">
                 <td th:text="${#temporals.format(task.startTime, 'HH:mm')}"></td>
                 <td th:text="${#temporals.format(task.endTime, 'HH:mm')}"></td>
-                <td><img th:src="${userImgDir + task.theme.imgName}" th:alt="${task.theme.name}"></td>
+                <!-- <td><img th:src="${userImgDir + task.theme.imgName}" th:alt="${task.theme.name}"></td> -->
+                <td th:unless="${task.theme == null}">
+                    <img th:src="${userImgDir + task.theme.imgName}" th:alt="${task.theme.name}"/>
+                </td>
+                <td th:if="${task.theme == null}"></td>
                 <td th:text="${task.description}"></td>
                 <td th:if="${task.status} == ${completionStatus}">
                     <img src="/images/ui/redo.png" alt="redo"/>

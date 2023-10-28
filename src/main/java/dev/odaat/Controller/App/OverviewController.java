@@ -16,6 +16,7 @@ import dev.odaat.Entity.Enums.ProgramType;
 import dev.odaat.Entity.Enums.ThemeType;
 import dev.odaat.Service.MockerService;
 import dev.odaat.Service.ThemeService;
+import dev.odaat.Utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -39,9 +40,7 @@ public class OverviewController {
         List<Theme> previousThemes = themes.stream().filter(theme -> theme.getCompletedAt() != null).collect(Collectors.toList());
 
         // To remove the /overview part.
-        String fullUrl = request.getRequestURL().toString();
-        int lastSlash = fullUrl.lastIndexOf("/");
-        String apiRoute = fullUrl.substring(0, lastSlash) + "/api/v1/theme";
+        String apiRoute = Utils.buildApiRoute(request.getRequestURL().toString(), "theme");
 
         model.addAttribute("currentThemes", currentThemes);
         model.addAttribute("previousThemes", previousThemes);

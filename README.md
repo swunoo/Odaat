@@ -44,3 +44,7 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Validation
     * Word limits
     * Required elements
+
+    # Current TODOs: 
+    * add "update" and "delete" for tasks.
+    * make "images" work.
