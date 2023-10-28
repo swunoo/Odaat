@@ -44,7 +44,7 @@
 
 .task-adder {
     display: grid;
-    grid-template-columns: 3fr 5fr 1fr;
+    grid-template-columns: 3fr 6fr 1fr;
     align-items: center;
     padding: 1em 5em;
     background-color: black;

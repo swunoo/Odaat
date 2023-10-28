@@ -57,9 +57,9 @@ public class DashboardController {
         model.addAttribute("userImgDir", userImgDir);
 
         List<String> themeNames = themeService.getAll().stream().map(theme -> theme.getName()).collect(Collectors.toList());
+        List<Theme> themes = themeService.getAll();
 
-
-        model.addAttribute("themeList", themeNames);
+        model.addAttribute("themeList", themes);
         model.addAttribute("tasks", taskService.getAll());
 
         return "dashboard";

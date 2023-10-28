@@ -36,3 +36,9 @@ function createRoutine(
         ...theme, type, repeatedOn, isActive, startTime, endTime
     };
 }
+
+function createTask(
+    themeId, date, description, status, startTime, endTime
+){
+    return { themeId, date, description, status, startTime, endTime };
+}

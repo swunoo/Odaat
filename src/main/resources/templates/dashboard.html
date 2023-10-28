@@ -20,5 +20,20 @@
     <div th:replace="fragments/task :: task-adder (
         themeList = ${themeList}
     )"></div>
+
+    <script th:inline="javascript">
+        // Server variables
+        const IMG_DIR = /*[[${userImgDir}]]*/ "";
+        const API_ROUTE = /*[[${apiRoute}]]*/ "";
+    </script>
+    <script>
+        const CSRF_TOKEN = document.querySelector("meta[name='_csrf']").getAttribute("content");
+        const [ TASK_CONTAINER, TASK_CREATE, TASK_CREATE_THEME, TASK_CREATE_DESCRIPTION, TASK_CREATE_BUTTON ] 
+            = ['task-table', 'task-create', 'task-create-theme', 'task-create-description', 'task-create-button']
+                .map(i => document.getElementById(i));
+    </script>
+    <script src="js/utils.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/task.js"></script>
 </body>
 </html>

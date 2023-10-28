@@ -15,7 +15,7 @@
             }"></p>
             <div th:replace="fragments/common :: drop-down (label='', options=${reportOptions})" class="task-container"></div>
         </header>
-        <table>
+        <table id="task-table">
             <tr th:each="task : ${tasks}" th:classappend="${task.status == completionStatus ? 'completed-task' : ''}">
                 <td th:text="${#temporals.format(task.startTime, 'HH:mm')}"></td>
                 <td th:text="${#temporals.format(task.endTime, 'HH:mm')}"></td>
@@ -31,15 +31,18 @@
         </table>
     </section>
 
-    <form th:fragment="task-adder (themeList)" class="task-adder">
-        <label>
-            <div th:replace="fragments/common :: drop-down (label='Project:', options=${themeList})"></div>
+    <form id="task-create" th:fragment="task-adder (themeList)" class="task-adder">
+        <label class="flex gap-2">
+            <p>Project:</p>
+            <select id="task-create-theme" >
+                <option th:each="theme : ${themeList}" th:value="${theme.id}" th:text="${theme.name}"></option>
+            </select>
         </label>
         <label class="flex gap-2">
             Description:
-            <input type="text" name="description"/>
+            <input id="task-create-description" type="text" name="description"/>
         </label>
-        <button type="submit">Add</button>
+        <button id="task-create-button" type="submit">Add</button>
     </form>
 </body>
 </html>
