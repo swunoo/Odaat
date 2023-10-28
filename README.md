@@ -44,8 +44,3 @@ UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=
 * Validation
     * Word limits
     * Required elements
-
-### Current Issues
-* Need to build ManyToOne in Task-Theme relationship
-* Trying ResultMap with a custom TypeHandler
-* TypeHandler doesn't seem to be injected with Service, so failing so far.

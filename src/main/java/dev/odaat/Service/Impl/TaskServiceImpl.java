@@ -24,7 +24,11 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Optional<Task> getById(int id) {
-        return Optional.of(taskMapper.selectById(id));
+        if(taskMapper.exists(id)){
+            return Optional.of(taskMapper.selectById(id));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -37,9 +41,9 @@ public class TaskServiceImpl implements TaskService{
 
         } catch (Exception e) {
             System.out.println("Exception:");
-            System.out.println(e.getMessage());
+            e.printStackTrace();
 
-            return Optional.of(null);
+            return Optional.empty();
         }
     }
 
@@ -53,7 +57,7 @@ public class TaskServiceImpl implements TaskService{
 
         } catch (Exception e) {
             System.out.println("Exception:");
-            System.out.println(e.getMessage());
+            e.printStackTrace();
 
             return Optional.of(null);
         }

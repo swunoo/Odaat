@@ -11,14 +11,14 @@
             <p class="font-title font-big font-bold" th:text="${
                 not #lists.isEmpty(tasks) 
                 ? tasks[0].date 
-                : #dates.format(#dates.creatNow(), 'YYYY/MM/dd')
+                : #dates.format(#calendars.createNow().time, 'yyyy-MM-dd')
             }"></p>
             <div th:replace="fragments/common :: drop-down (label='', options=${reportOptions})" class="task-container"></div>
         </header>
         <table>
             <tr th:each="task : ${tasks}" th:classappend="${task.status == completionStatus ? 'completed-task' : ''}">
-                <td th:text="${task.startTime}"></td>
-                <td th:text="${task.endTime}"></td>
+                <td th:text="${#temporals.format(task.startTime, 'HH:mm')}"></td>
+                <td th:text="${#temporals.format(task.endTime, 'HH:mm')}"></td>
                 <td><img th:src="${userImgDir + task.theme.imgName}" th:alt="${task.theme.name}"></td>
                 <td th:text="${task.description}"></td>
                 <td th:if="${task.status} == ${completionStatus}">

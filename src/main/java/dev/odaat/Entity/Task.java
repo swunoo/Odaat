@@ -32,6 +32,16 @@ public class Task {
         this.status = status;
     }
 
+    public Task(Theme theme, LocalDate date,
+            String description, TaskStatus status, LocalTime startTime, LocalTime endTime) {
+        this.theme = theme;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.description = description;
+        this.status = status;
+    }
+
     public Task(
         int id, LocalDate date,
         String description, TaskStatus status, LocalTime startTime, LocalTime endTime,
@@ -70,6 +80,10 @@ public class Task {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

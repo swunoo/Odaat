@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,8 @@ public class DashboardController {
     // Gets necessary data through services and returns html.
     @GetMapping
     public String dashboard(Model model){
+        
+        // testServices();
 
         model.addAttribute(
             "reportOptions",
@@ -54,13 +57,65 @@ public class DashboardController {
         model.addAttribute("userImgDir", userImgDir);
 
         List<String> themeNames = themeService.getAll().stream().map(theme -> theme.getName()).collect(Collectors.toList());
-        List<Task> tasks = taskService.getAll();
-        System.out.println("................................");
-        tasks.stream().forEach(t -> System.out.println(t));
-        System.out.println("................................");
+
+
         model.addAttribute("themeList", themeNames);
         model.addAttribute("tasks", taskService.getAll());
 
         return "dashboard";
     }
+
+private void testServices(){
+        System.out.println("===============TESTS================");
+
+        System.out.println("getAll.............................");
+        List<Task> tTasks = taskService.getAll();
+        tTasks.stream().forEach(t -> System.out.println(t.getId()));
+
+        System.out.println("getById.............................");
+        Optional<Task> tTask = taskService.getById(100);
+        System.out.println(tTask.isEmpty() ? "<empty>" : "not empty");
+
+        System.out.println("insert.............................");
+        Optional<Theme> tThemeOptional = themeService.getById(204);
+        Theme tTheme;
+        if(tThemeOptional.isEmpty()) {
+            System.out.println("tThemeOptional is empty.");
+            tTheme = themeService.getAll().get(0);
+            if (tTheme == null) tTheme = new Theme();
+        } else {
+            System.out.println("tThemeOptional is not empty.");
+            tTheme = tThemeOptional.get();
+        }
+
+        Optional<Task> tInsertionOptional = taskService.insert(new Task(
+            tTheme,
+            LocalDate.now(), "Lorem Ipsum new", TaskStatus.TODO, 
+            LocalTime.now(), LocalTime.now().plusHours(2)));
+        
+        Task tInsertion = tInsertionOptional.get();
+
+        System.out.println(tInsertion);
+        System.out.println(tInsertion.getId());
+
+        System.out.println(taskService.getById(tInsertion.getId()));
+
+        System.out.println("update.............................");
+        taskService.update(tInsertion.getId(), 
+            new Task(
+                themeService.getAll().get(0),
+                LocalDate.now(), "Lorem Ipsum Updated", TaskStatus.TODO, 
+                LocalTime.now(), LocalTime.now().plusHours(2)));
+        
+        System.out.println(taskService.getById(tInsertion.getId()).get().getDescription());
+
+        System.out.println("delete.............................");
+        // taskService.delete(tInsertion.getId());
+        // Optional<Task> tDeleted = taskService.getById(tInsertion.getId());
+        // System.out.println(tDeleted.isEmpty() ? "<deleted>" : tDeleted.get());
+
+        System.out.println("====================================");
+
+}
+
 }

@@ -95,10 +95,10 @@ public class ThemeServiceImpl implements ThemeService {
 
         // Saves to theme.
         themeMapper.add(theme);
-        int createdThemeID = theme.getId();
-
+        
         // Sets themeID.
-        theme.setId(createdThemeID);
+        // int createdThemeID = theme.getId();
+        // theme.setId(createdThemeID);
 
         // Saves to project if it is a PROJECT, routine otherwise.
         if(theme.getType() == ThemeType.PROJECT) projectMapper.insert((Project) theme);
@@ -113,14 +113,8 @@ public class ThemeServiceImpl implements ThemeService {
 
         if(theme.getType() == null) throw new IllegalArgumentException("Theme type is empty.");
 
-        System.out.println("ID to update: " + id);
-
         // Sets theme's id to provided id.
         theme.setId(id);
-
-        System.out.println("Theme's id: " + theme.getId());
-
-        System.out.println("theme name before: " + themeMapper.selectById(id).getName());
 
         // Updates theme.
         themeMapper.update(theme);
