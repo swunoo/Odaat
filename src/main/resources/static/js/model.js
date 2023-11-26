@@ -2,11 +2,8 @@ function createTheme(
     name, program, timeSpent, description,
     imgName, startedAt, completedAt
 ){
-    // TMP
-    // TODO: use server-generated id.
     
     this.id = new Date().getTime();
-    // TODO: add imgAPIs
     return {
         name, program, timeSpent, description, imgName, startedAt, completedAt
     }
