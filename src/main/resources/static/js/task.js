@@ -9,14 +9,11 @@ TASK_CREATE.addEventListener('submit', e => {
         new Date().toTimeString().slice(0, 5),
         new Date(Date.now() + 3600 * 1000).toTimeString().slice(0, 5)
     )
-    console.log("task:");
-    console.log(task);
 
     const createTaskInputs = [TASK_CREATE_THEME, TASK_CREATE_DESCRIPTION, TASK_CREATE_BUTTON];
     createTaskInputs.forEach(ele => ele.disabled = true);
 
     // Send fetch request, turn disable to false after success.
-    
     fetch(API_ROUTE, {
         method: 'POST',
         headers: {
@@ -31,7 +28,5 @@ TASK_CREATE.addEventListener('submit', e => {
             return res.text();
         })
         .then(response => {
-            console.log("response");
-            console.log(response);
         });
 })

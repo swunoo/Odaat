@@ -14,13 +14,12 @@ public class LoginController {
 
     @GetMapping
     public String showLoginPage(){
-        System.out.println("reached here");
         return "login";
     }
 
     @PostMapping
     public String attemptLogin(@ModelAttribute UserAuth userAuth){
-        if(userAuth.getUsername() == "a" && userAuth.getPassword() == "a"){
+        if(userAuth.getUsername() == "admin" && userAuth.getPassword() == "password"){
             return "/";
         } else return "/login";
     }

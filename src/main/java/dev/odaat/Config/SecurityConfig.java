@@ -21,11 +21,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(Customizer.withDefaults())
-            // .csrf().disable()
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/login/**").permitAll()
                 .requestMatchers(HttpMethod.POST).permitAll()
-                .anyRequest().permitAll() // TODO: change this to authenticated.
+                .anyRequest().permitAll()
             )
             .formLogin(form -> form.loginPage("/login").permitAll());
         return http.build();

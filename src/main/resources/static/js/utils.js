@@ -1,11 +1,9 @@
 function adjustModal(){
     if(getValue(TYPE) === 'PROJECT'){
-        console.log('PROJECT');
         TYPE.children[1].classList.remove('bg-blue-forced');
         [DAYS, FROM, TO].forEach(item => item.classList.add('hidden-forced'));
         [DEADLINE, ESTIMATED].forEach(item => item.classList.remove('hidden-forced'));
     } else if (getValue(TYPE) === 'ROUTINE'){
-        console.log('ROUTINE');
         TYPE.children[1].classList.add('bg-blue-forced');
         [DAYS, FROM, TO].forEach(item => item.classList.remove('hidden-forced'));
         [DEADLINE, ESTIMATED].forEach(item => item.classList.add('hidden-forced'));

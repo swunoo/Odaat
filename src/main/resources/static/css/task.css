@@ -1,5 +1,4 @@
 .task-details {
-    /* height: 80vh; */
     width: 70vw;
     overflow-y: scroll;
     border-radius: var(--border-mid);

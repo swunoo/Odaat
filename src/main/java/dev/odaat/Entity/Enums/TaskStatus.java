@@ -10,19 +10,16 @@ public enum TaskStatus implements JdbcType{
 
     @Override
     public int getJdbcTypeCode() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getJdbcTypeCode'");
     }
 
     @Override
     public <X> ValueBinder<X> getBinder(JavaType<X> javaType) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBinder'");
     }
 
     @Override
     public <X> ValueExtractor<X> getExtractor(JavaType<X> javaType) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getExtractor'");
     }
 }

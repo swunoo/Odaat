@@ -7,7 +7,6 @@ ADD_BTN.addEventListener('click', e => openModal(MODAL));
 // Deleting a Theme.
 function deleteTheme(item){
     const id = item.getAttribute('data-delete-id');
-    console.log('id to delete: ' + id);
     fetch(API_ROUTE + "/" + id, {
         method: 'DELETE',
         headers: {
@@ -20,13 +19,12 @@ function deleteTheme(item){
             return res.text();
         })
         .then(response => {
-            console.log(response);
             oldCard = document.getElementById(id);
             oldCard.remove();
             closeModal(MODAL);
         })
         .catch(err => {
-            console.log("ERROR THROWN.");
+            console.error(err);
         });
 }
 
@@ -56,16 +54,12 @@ function openThemeMenu(item){
 
             // For 'completedAt'.
             if(data === 'calc-completedAt'){
-                console.log('calc-completedAt TAG');
-                console.log(tag.textContent);
 
                 if(tag.textContent === 'Present'){
                     themeData['completedAt'] = null;
                 } else {
                     const completionTime = Date.parse(tag.textContent);
                     const currentTime = Date.now();
-                    console.log(completionTime);
-                    console.log(currentTime);
                     if(completionTime > currentTime){
                         themeData['deadline'] = tag.textContent;
                     } else {
@@ -85,7 +79,6 @@ function openThemeMenu(item){
     }
 
     traverseAndExtract(container);
-    console.log(themeData);
 
     // Builds theme modal
     IMG.src = themeData.imgName;
@@ -103,7 +96,6 @@ function openThemeMenu(item){
     setValue(FROM, themeData.startTime);
     setValue(TO, themeData.endTime);
 
-    console.log("id: " + themeData.id);
     DELETEBTN.setAttribute('data-delete-id', themeData.id);
 
     DELETEBTN.classList.remove('hidden');
@@ -126,15 +118,12 @@ FORM.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const apiMethod = SUBMIT.textContent.toLowerCase() === 'update' ? 'PUT' : 'POST';
-    console.log(apiMethod);
 
     // Collects user input.
     // TODO: validation
     const parentTheme = createNewTheme(
         getValue(NAME), getValue(PROGRAM), getValue(DESCRIPTION), getValue(END)
     );
-
-    console.log(parentTheme);
 
     const theme = (getValue(TYPE)==='PROJECT') 
                     ? createProject(parentTheme, getValue(ESTIMATED), getValue(DEADLINE))
@@ -154,12 +143,6 @@ FORM.addEventListener('submit', async (e) => {
     )
 
     // Sends data and Waits for res.
-    console.log("repeated on from user input is:");
-    console.log(getValue(DAYS));
-
-    console.log("theme to be sent:")
-    console.log(theme);
-
     await fetch(API_ROUTE + "/" + theme.type.toLowerCase(), {
         method: apiMethod,
         headers: {
@@ -175,9 +158,6 @@ FORM.addEventListener('submit', async (e) => {
             return res.text();
         })
         .then(response => {
-            console.log(response);
-            console.log("themecardUI");
-            console.log(themeCardUI);
             if(apiMethod === 'POST'){
                 theme.id = response.split(":")[1].trim();
                 themeCardUI.id = theme.id;
@@ -185,7 +165,6 @@ FORM.addEventListener('submit', async (e) => {
             themeCardUI.querySelector('.loading-curtain').classList.add('hidden-forced');
         })
         .catch(err => {
-            console.log("ERROR THROWN.");
             themeCardUI.querySelector('.loading-curtain > h3').textContent = "Failed. Please reload."
             throw new Error(err)
         });
@@ -263,20 +242,3 @@ const mockRoutine = createRoutine(
     createNewTheme("Routine", "CHORES", "Routine description"),
     ["SUN", "MON"], true, "10:30", "17:30" 
 )
-
-// Testing theme card
-// console.log("Mock");
-// const proj = buildThemeCard(mockProject);
-// const rout = buildThemeCard(mockRoutine);
-// THEME_WRAPPER.appendChild(proj);
-// THEME_WRAPPER.appendChild(rout);
-
-// setTimeout(() => {
-//     console.log('adding');
-//     proj.querySelector('.loading-curtain').classList.add('hidden-forced');
-// }, 2000);
-
-// setTimeout(() => {
-//     console.log('adding');
-//     rout.querySelector('.loading-curtain').classList.add('hidden-forced');
-// }, 1000);

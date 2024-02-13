@@ -1,50 +1,11 @@
-#ODAAT
+# ODAAT
 
-## Designs
-UI: https://www.figma.com/file/NsvKJdakWRON1Ffx8HsOfo/Odaat?type=design&node-id=302-8&mode=design&t=n5I4kcGHVMQ3OQlW-0
+## Description
+* Personal management tool to help organize a large variety of tasks.
+* Written in an effort to explore ways of using island architecture with Thymeleaf and vanilla JavaScript.
 
-## TechStack
-* SpringBoot
-* Thymeleaf
-* Postgresql
+## Tools and Technology
+* JavaScript, Spring Boot, Thymeleaf, MyBatis, PostgreSQL, Flyway.
 
 ## Timeline
-* UI: 3~5 hr
-* ER: 1 hr
-* Routes: 1 hr
-* Database: 1 + 1 + 1
-* CRUD: 1 + 1 (Up to one sample Entity)
-
-## Journal
-* Started on 2023 September
-
-## Topics to explore
-* Q: Is the model passed from Controller or does thymeleaf just goes around grabbing properties?
-* L: "Using jakarta persistence annotations like @OneToMany with MyBatis"
-
-## STEPS (Up to theme) -> completed on Oct 15
-* UI Design
-* ER, DDL
-* API routes (sample)
-* Controllers, HTML&CSS, modification of ER and DDL
-* JavaScript
-* Datepicker/timepicker/multiselect
-* CRUD apis
-* Connecting with js -> SECURITY CONFIG NEEDED
-* Security
-
-## TODOs:
-
-### Overview
-* Clean the code
-* Work on Tasks
-    * API
-    * JS fetch
-    * CSS
-* Validation
-    * Word limits
-    * Required elements
-
-    # Current TODOs: 
-    * add "update" and "delete" for tasks.
-    * make "images" work.
+* Coded on sundays, on 2023 September-October, with development time totalling 15~20 hours.

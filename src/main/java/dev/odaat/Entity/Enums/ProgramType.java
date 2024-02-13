@@ -12,12 +12,10 @@ public enum ProgramType implements JdbcType{
     // To be able to cast to JdbcType in mappper xml
     @Override
     public <X> ValueBinder<X> getBinder(JavaType<X> arg0) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getBinder'");
     }
     @Override
     public <X> ValueExtractor<X> getExtractor(JavaType<X> arg0) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getExtractor'");
     }
     @Override

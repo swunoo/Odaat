@@ -118,8 +118,6 @@ public class ThemeController {
     public ResponseEntity<String> updateRoutine(
         @Validated @RequestBody Routine routine, BindingResult bindingResult){
 
-        System.out.println(routine.getRepeatedOn());
-
         if(bindingResult.hasErrors()){
             System.out.println("Binding errors:");
             System.out.println(bindingResult.getAllErrors().toString());
@@ -132,11 +130,6 @@ public class ThemeController {
     }
 
     private ResponseEntity<String> update(Theme theme){
-
-        System.out.println("==========");
-        System.out.println("Received internally:");
-        System.out.println(theme);
-        System.out.println("==========");
 
         if(theme.getId()  == 0){
             return ResponseEntity
@@ -160,11 +153,6 @@ public class ThemeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
 
-        System.out.println("--------------------");
-        System.out.println("DELETE");
-        System.out.println(id);
-        System.out.println("--------------------");
-        
         try {
             themeService.delete(id);
             return ResponseEntity

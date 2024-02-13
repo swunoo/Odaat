@@ -32,8 +32,6 @@ public class OverviewController {
     @GetMapping
     public String overview(HttpServletRequest request, Model model){
 
-        // mockerService.testThemes();
-
         List<Theme> themes = themeService.getAll();
         
         List<Theme> currentThemes = themes.stream().filter(theme -> theme.getCompletedAt() == null).collect(Collectors.toList());

@@ -18,7 +18,7 @@ import dev.odaat.Entity.Theme;
 import dev.odaat.Entity.Enums.DayType;
 import dev.odaat.Entity.Enums.ProgramType;
 
-// A Service class for testing.
+// A Service class for manual testing.
 @Service
 public class MockerService {
 
@@ -46,7 +46,6 @@ public class MockerService {
 
         System.out.println("==========TESTING STARTS==========");
 
-
         // Inserting 3 projects, 2 routines.
         System.out.println("==========INSERTING==========");
         Theme proj1 = themeService.insert(fakeProject()).orElseThrow();
@@ -67,8 +66,8 @@ public class MockerService {
 
         // Selecting 1 project, 1 routine.
         System.out.println("==========SELECTING BY ID==========");
-        // System.out.println(themeService.getById(proj1.getId()).orElseThrow().toString());
-        // System.out.println(themeService.getById(rout1.getId()).orElseThrow().toString());
+        System.out.println(themeService.getById(proj1.getId()).orElseThrow().toString());
+        System.out.println(themeService.getById(rout1.getId()).orElseThrow().toString());
          
         System.out.println("proj1: " + proj1.getId() + " equals " + themeService.getById(proj1.getId()).orElseThrow().getId());
         System.out.println("rout1: " + rout1.getId() + " equals " + themeService.getById(rout1.getId()).orElseThrow().getId());

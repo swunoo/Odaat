@@ -96,10 +96,6 @@ public class ThemeServiceImpl implements ThemeService {
         // Saves to theme.
         themeMapper.add(theme);
         
-        // Sets themeID.
-        // int createdThemeID = theme.getId();
-        // theme.setId(createdThemeID);
-
         // Saves to project if it is a PROJECT, routine otherwise.
         if(theme.getType() == ThemeType.PROJECT) projectMapper.insert((Project) theme);
         else routineMapper.insert((Routine) theme);
