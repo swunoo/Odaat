@@ -1,5 +1,7 @@
 # ODAAT
 
+![Dashboard](https://github.com/swunoo/Odaat/assets/103637975/9cd8400f-1b86-4a85-82d5-01339f9867d2)
+
 ## Description
 * Personal management tool to help organize a large variety of tasks.
 * Written in an effort to explore ways of using island architecture with Thymeleaf and vanilla JavaScript.
