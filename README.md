@@ -1,6 +1,6 @@
 # ODAAT
 
-![Dashboard](https://github.com/swunoo/Odaat/assets/103637975/9cd8400f-1b86-4a85-82d5-01339f9867d2)
+![Dashboard(1)](https://github.com/swunoo/Odaat/assets/103637975/07f48cfb-3ee2-4df1-8693-a889a8d65206)
 
 ## Description
 * Personal management tool to help organize a large variety of tasks.
